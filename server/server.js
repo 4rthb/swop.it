@@ -17,7 +17,9 @@ app.get('/marketplace', (req, res) => {
   res.json(products);
 });
 
+const productRoutes = require('./routes/products/products')
 const userRoutes = require('./routes/users/users')
+app.use(productRoutes);
 app.use(userRoutes);
 
 app.listen(5000, () => console.log(`Listening on port ${5000}`));
