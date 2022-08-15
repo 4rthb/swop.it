@@ -1,6 +1,3 @@
-import { products } from './controllers/productController';
-import { validateUser } from './controllers/userController';
-
 const express = require('express');
 const cors = require('cors');
 var fs = require('fs');
