@@ -3,7 +3,6 @@ const router = express.Router()
 const path = require('path')
 var fs = require('fs');
 
-
 router.post('/register', async (req, res) => {
   users_data = fs.readFileSync('./models/users.json');
   users = JSON.parse(users_data);
@@ -17,8 +16,6 @@ router.post('/register', async (req, res) => {
     const [key, value] = entry;
 
     if(email === key){
-      console.log(email);
-      console.log(key);
       alreadyTaken = true
     }
   });
