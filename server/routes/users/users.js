@@ -5,10 +5,15 @@ var fs = require('fs');
 const { registerUser, validateUser } = require('../../controllers/userController')
 
 router.post('/register', async (req, res) => {
+  users_data = fs.readFileSync('./models/users.json');
+  users = JSON.parse(users_data);
   var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
+  var alreadyTaken = false;
 
+  Object.entries(users).forEach((entry) => {
+    const [key, value] = entry;
     if(email === key){
       alreadyTaken = true
     }
@@ -43,7 +48,7 @@ router.post('/', async (req, res) => {
 
   switch (validateUser(email, password)){
     case 0:
-      res.redirect('/marketplace');
+    res.send({status: 'success', description: 'Authenticated'});
       break;
     case 1:
       res.send({status: 'fail', description: 'Wrong password'});

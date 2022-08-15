@@ -14,7 +14,7 @@ app.post('marketplace/new', (req, res) => {
 
 app.get('/marketplace', (req, res) => {
   // get data from products.json and send it to marketplace
-  res.json(products);
+  //res.json(products);
 });
 
 const userRoutes = require('./routes/users/users')

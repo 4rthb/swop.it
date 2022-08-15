@@ -42,5 +42,9 @@
   "ta@ta.com": {
     "name": "ta",
     "password": "ta"
+  },
+  "sim@sim.com": {
+    "name": "sim",
+    "password": "sim"
   }
 }
