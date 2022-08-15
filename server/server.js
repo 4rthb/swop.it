@@ -1,3 +1,6 @@
+import { products } from './controllers/productController';
+import { validateUser } from './controllers/userController';
+
 const express = require('express');
 const cors = require('cors');
 var fs = require('fs');
@@ -10,10 +13,14 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
-app.get('/api', (req, res) => {
-  res.json({
-    "users": ["one", "two", "three", "five"]
-  });
+app.post('marketplace/new', (req, res) => {
+  const { username, productname } = req.body
+  // ...
+});
+
+app.get('/marketplace', (req, res) => {
+  // get data from products.json and send it to marketplace
+  res.json(products);
 });
 
 const userRoutes = require('./routes/users/users')
