@@ -1,11 +1,5 @@
-import { products } from './controllers/productController';
-import { validateUser } from './controllers/userController';
-
 const express = require('express');
 const cors = require('cors');
-var fs = require('fs');
-var users_data = fs.readFileSync('./models/users.json');
-var users = JSON.parse(users_data);
 
 //console.log(users);
 
