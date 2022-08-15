@@ -2,18 +2,12 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 var fs = require('fs');
+const { registerUser, validateUser } = require('../../controllers/userController')
 
 router.post('/register', async (req, res) => {
-  users_data = fs.readFileSync('./models/users.json');
-  users = JSON.parse(users_data);
-
   var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
-  var alreadyTaken = false;
-
-  Object.entries(users).forEach((entry) => {
-    const [key, value] = entry;
 
     if(email === key){
       alreadyTaken = true
@@ -44,29 +38,22 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  users_data = fs.readFileSync('././models/users.json');
-  users = JSON.parse(users_data);
-
   var email = req.body.email;
   var password = req.body.password;
-  var validated = false;
 
-  Object.entries(users).forEach((entry) => {
-    const [key, value] = entry;
-
-    if(email === key){
-      if(value['password'] === password){
-        validated = true;
-      }else{
-        validated = false;
-      }
-    }
-  });
-
-  reply = {
-    status: validated ? 'success':'fail'
-  };
-  res.send(reply);
+  switch (validateUser(email, password)){
+    case 0:
+      res.redirect('/marketplace');
+      break;
+    case 1:
+      res.send({status: 'fail', description: 'Wrong password'});
+      break;
+    case 2:
+      res.send({status: 'fail', description: 'Unknown user'});
+      break;
+    default:
+      res.send({status: 'fail', description: 'Unknown behavior'});
+  }
 })
 
 module.exports = router
