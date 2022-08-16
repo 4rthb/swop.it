@@ -1,8 +1,9 @@
-
+import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useState } from 'react'
 
 function Login (){
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,9 +19,13 @@ function Login (){
         email,
         password,
       }),
+    }).then(response => {
+      return response.json();
+    }).then(json => {
+      if(json.status === "success"){
+        navigate("/marketplace");
+      }
     }).then(window.sessionStorage.setItem("email", email));
-
-    const data = await response.json()
   }
 
   return (
