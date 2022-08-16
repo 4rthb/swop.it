@@ -22,5 +22,29 @@
   "gomes@gomes.com": {
     "name": "gomes",
     "password": "gomes"
+  },
+  "tiago@tiago.com": {
+    "name": "tiago",
+    "password": "tiago"
+  },
+  "pacotes@pacotes.com": {
+    "name": "pacotes",
+    "password": "pacotes"
+  },
+  "nao@mail.com": {
+    "name": "nao",
+    "password": "nao"
+  },
+  "pedro@pedro.com": {
+    "name": "pedro",
+    "password": "pedro"
+  },
+  "ta@ta.com": {
+    "name": "ta",
+    "password": "ta"
+  },
+  "sim@sim.com": {
+    "name": "sim",
+    "password": "sim"
   }
 }

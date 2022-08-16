@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useState } from 'react'
 
 function Register (){
+  const navigate = useNavigate();
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,7 +21,13 @@ function Register (){
         email,
         password,
       }),
-    })
+    }).then(response => {
+      return response.json();
+    }).then(json => {
+      if(json.status === "success"){
+        navigate("/");
+      }
+  });
   }
 
   return (
