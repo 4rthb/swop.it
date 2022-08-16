@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { registerProduct, getProducts } = require('../../controllers/userController')
+const { registerProduct, getProducts } = require('../../controllers/productController')
 
 
 router.post('/marketplace/new', async (req, res) => {
@@ -20,10 +20,7 @@ router.post('/marketplace/new', async (req, res) => {
 })
 
 router.get('/marketplace', async (req, res) => {
-  products_data = fs.readFileSync('././models/products.json');
-  products = JSON.parse(products_data);
-
-  res.JSON(getProducts());
+  res.json(getProducts());
 })
 
 module.exports = router

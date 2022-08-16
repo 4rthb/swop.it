@@ -18,7 +18,7 @@ function Login (){
         email,
         password,
       }),
-    })
+    }).then(window.sessionStorage.setItem("email", email));
 
     const data = await response.json()
   }

@@ -1,14 +1,18 @@
 import React from 'react';
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-function Register (){
-  const [email, setEmail] = useState('')
+function RegProd(){
   const [product, setProduct] = useState('')
-  const [productID, setProductID] = useState('')
   const [description, setDescription] = useState('')
 
   async function registerProduct(event) {
     event.preventDefault()
+
+    var newDate = Date();
+    var date = newDate.getDate;
+    var email = window.sessionStorage.getItem("email");
+    var productID = uuidv4();
 
     const response = await fetch('http://localhost:5000/marketplace/new', {
       method: 'POST',
@@ -23,8 +27,10 @@ function Register (){
         description,
       }),
     })
-  }
 
+    const data = await response.json()
+  }
+  
   return (
     <div>
       <h1>Register Product</h1>
@@ -49,4 +55,4 @@ function Register (){
   )
 }
 
-export default Register;
+export default RegProd;
