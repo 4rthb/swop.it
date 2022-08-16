@@ -25,7 +25,7 @@ function Login (){
       if(json.status === "success"){
         navigate("/marketplace");
       }
-    });
+    }).then(window.sessionStorage.setItem("email", email));
   }
 
   return (
