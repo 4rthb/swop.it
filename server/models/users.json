@@ -46,5 +46,9 @@
   "sim@sim.com": {
     "name": "sim",
     "password": "sim"
+  },
+  "tiago@sch.midt": {
+    "username": "tiago",
+    "password": "midget"
   }
 }

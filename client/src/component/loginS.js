@@ -23,7 +23,7 @@ function Login (){
       return response.json();
     }).then(json => {
       if(json.status === "success"){
-        navigate("/marketplace");
+        navigate("/marketplace/new");
       }
     }).then(window.sessionStorage.setItem("email", email));
   }
