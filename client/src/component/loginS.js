@@ -10,7 +10,7 @@ function Login (){
   async function loginUser(event) {
     event.preventDefault()
 
-    const response = await fetch('http://localhost:5000/', {
+    await fetch('http://localhost:5000/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

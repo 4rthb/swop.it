@@ -14,7 +14,7 @@ function RegProd(){
     var email = window.sessionStorage.getItem("email");
     var productID = uuidv4();
 
-    const response = await fetch('http://localhost:5000/marketplace/new', {
+    await fetch('http://localhost:5000/marketplace/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,10 +27,8 @@ function RegProd(){
         description,
       }),
     })
-
-    const data = await response.json()
   }
-  
+
   return (
     <div>
       <h1>Register Product</h1>
