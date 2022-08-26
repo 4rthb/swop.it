@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
-//console.log(users);
+const uri = "mongodb+srv://onlyuser:onlyone@swopcluster.di2gwcm.mongodb.net/?retryWrites=true&w=majority";
 
-const app = express();
+const app = express()
 app.use(cors())
 app.use(express.json())
+
+mongoose.connect(uri)
 
 const productRoutes = require('./routes/products/products')
 const userRoutes = require('./routes/users/users')
