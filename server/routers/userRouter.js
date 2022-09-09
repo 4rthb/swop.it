@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 const User = require('../models/userModel.js');
-const {generateToken} = require('../utils.js');
+const {generateToken, isAuth} = require('../utils.js');
 
 const userRouter = express.Router();
 
@@ -34,8 +34,6 @@ userRouter.post(
       email: req.body.email,
       adress: req.body.adress,
       phoneNumber: req.body.phoneNumber,
-      email: req.body.email,
-      email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
     const createdUser = await user.save();
@@ -47,5 +45,29 @@ userRouter.post(
     });
   })
 )
+
+userRouter.put(
+  '/profile',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.adress = req.body.adress || user.adress;
+      user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+      if (req.body.password) {
+        user.password = bcrypt.hashSync(req.body.password, 8);
+      }
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: generateToken(updatedUser),
+      });
+    }
+  })
+);
 
 module.exports = userRouter
