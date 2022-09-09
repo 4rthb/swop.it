@@ -1,3 +1,4 @@
+const userRouter = require('./routers/userRouter.js');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -14,5 +15,6 @@ const productRoutes = require('./routes/products/products')
 const userRoutes = require('./routes/users/users')
 app.use(productRoutes);
 app.use(userRoutes);
+app.use('/api/users', userRouter);
 
 app.listen(5000, () => console.log(`Listening on port ${5000}`));
