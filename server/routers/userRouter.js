@@ -34,6 +34,7 @@ userRouter.post(
       email: req.body.email,
       adress: req.body.adress,
       phoneNumber: req.body.phoneNumber,
+      isAdmin: false,
       password: bcrypt.hashSync(req.body.password, 8),
     });
     const createdUser = await user.save();

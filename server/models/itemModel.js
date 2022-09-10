@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true
-  },
   name: {
     type: String,
     required: true
@@ -15,7 +10,7 @@ const itemSchema = new mongoose.Schema({
     required: true
   },
   currentState: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true
   },
   owner: {
