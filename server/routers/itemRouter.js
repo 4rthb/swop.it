@@ -12,6 +12,7 @@ itemRouter.post(
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
+      image: req.body.imageUrl,
       currentState: "AVAILABLE",
       owner: req.body.user_id,
     });
