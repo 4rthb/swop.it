@@ -23,7 +23,7 @@ const offerSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamp: true
+  timestamps: true
 })
 
 const Offer = mongoose.model("Offer", offerSchema)

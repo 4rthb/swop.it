@@ -33,7 +33,7 @@ itemRouter.put(
     if (item) {
       item.name = req.body.name;
       item.description = req.body.description;
-        item.currentState = req.body.currentState;
+      item.currentState = req.body.currentState;
       item.owner = req.body.owner;
       const updatedItem = await item.save();
       res.send({ message: "Item atualizado.", item: updatedItem });

@@ -2,7 +2,9 @@ const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Item = require('../models/itemModel.js');
 const Offer = require('../models/offerModel.js');
-const {isAuth} = require('../utils.js');
+const {
+  isAuth
+} = require('../utils.js');
 
 const offerRouter = express.Router();
 
@@ -21,13 +23,27 @@ offerRouter.post(
         desiredOwner: item.owner,
         offeredOwner: req.body.user_id,
       });
+
+      for (var itemIndex in req.body.itemsOffered) {
+        const newItem = await Item.findById(req.body.itemsOffered[itemIndex]);
+
+        if (newItem) {
+          newItem.currentState = "BLOCKED";
+          newItem.image = "url.boa.com";
+          const savedItem = await newItem.save();
+        }
+      }
+
+
       const createdOffer = await offer.save();
       res.send({
         _id: createdOffer._id,
         itemDesired: createdOffer.itemDesired,
       });
     } else {
-      res.status(404).send({ message:"Item inexistente."});
+      res.status(404).send({
+        message: "Item inexistente."
+      });
     }
   })
 );
