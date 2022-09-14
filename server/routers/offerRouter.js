@@ -18,32 +18,38 @@ offerRouter.post(
 
     let offeredItems = [];
     if (item) {
-      for (var itemIndex in req.body.itemsOffered) {
-        const newItem = await Item.findById(req.body.itemsOffered[itemIndex]);
+      if (item.owner.toString() !== req.user._id) {
+        for (var itemIndex in req.body.itemsOffered) {
+          const newItem = await Item.findById(req.body.itemsOffered[itemIndex]);
 
-        if (newItem) {
-          if (newItem.currentState !== "BLOCKED") {
-            newItem.currentState = "BLOCKED";
-            newItem.image = "url.boa.com";
-            const savedItem = await newItem.save();
-            offeredItems.push(savedItem.id);
+          if (newItem) {
+            if (newItem.currentState !== "BLOCKED") {
+              newItem.currentState = "BLOCKED";
+              newItem.image = "url.boa.com";
+              const savedItem = await newItem.save();
+              offeredItems.push(savedItem.id);
+            }
           }
         }
+
+        const offer = new Offer({
+          itemDesired: item.id,
+          itemsOffered: offeredItems,
+          offerState: "PENDING",
+          desiredOwner: item.owner,
+          offeredOwner: req.body.user_id,
+        });
+
+        const createdOffer = await offer.save();
+        res.send({
+          _id: createdOffer._id,
+          itemDesired: createdOffer.itemDesired,
+        });
+      } else {
+        res.status(404).send({
+          message: "Você já é dono deste item."
+        });
       }
-
-      const offer = new Offer({
-        itemDesired: item.id,
-        itemsOffered: offeredItems,
-        offerState: "PENDING",
-        desiredOwner: item.owner,
-        offeredOwner: req.body.user_id,
-      });
-
-      const createdOffer = await offer.save();
-      res.send({
-        _id: createdOffer._id,
-        itemDesired: createdOffer.itemDesired,
-      });
     } else {
       res.status(404).send({
         message: "Item inexistente."
