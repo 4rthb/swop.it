@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 const User = require('../models/userModel.js');
+const Item = require('../models/itemModel.js');
 const {
   generateToken,
   isAuth
@@ -55,6 +56,18 @@ userRouter.post(
     });
   })
 )
+
+userRouter.get(
+  '/:userId/items',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.userId;
+    const items = await Item.find({
+      currentState: "AVAILABLE",
+      owner: userId
+    });
+    res.send(items);
+  }));
 
 userRouter.put(
   '/profile',
