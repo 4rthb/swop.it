@@ -14,9 +14,8 @@ offerRouter.post(
   expressAsyncHandler(async (req, res) => {
     const itemId = req.params.itemId;
     const item = await Item.findById(itemId);
-
-
     let offeredItems = [];
+
     if (item) {
       if (item.owner.toString() !== req.user._id) {
         for (var itemIndex in req.body.itemsOffered) {
@@ -25,7 +24,6 @@ offerRouter.post(
           if (newItem) {
             if (newItem.currentState !== "BLOCKED") {
               newItem.currentState = "BLOCKED";
-              newItem.image = "url.boa.com";
               const savedItem = await newItem.save();
               offeredItems.push(savedItem.id);
             }

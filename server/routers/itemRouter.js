@@ -13,6 +13,7 @@ itemRouter.post(
       name: req.body.name,
       description: req.body.description,
       image: req.body.imageUrl,
+      category: req.body.category,
       currentState: "AVAILABLE",
       owner: req.body.user_id,
     });
@@ -34,6 +35,7 @@ itemRouter.put(
       item.name = req.body.name;
       item.description = req.body.description;
       item.currentState = req.body.currentState;
+      item.category = req.body.category;
       item.owner = req.body.owner;
       const updatedItem = await item.save();
       res.send({ message: "Item atualizado.", item: updatedItem });
