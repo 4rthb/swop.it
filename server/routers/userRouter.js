@@ -62,7 +62,6 @@ userRouter.get(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const searchQuery = req.body.query;
-    console.log(searchQuery);
     const users = await User.find({
       $or: [{
         name: new RegExp(searchQuery, 'i')
