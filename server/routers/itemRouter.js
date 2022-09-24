@@ -1,7 +1,9 @@
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Item = require('../models/itemModel.js');
-const {isAuth} = require('../utils.js');
+const {
+  isAuth
+} = require('../utils.js');
 
 const itemRouter = express.Router();
 
@@ -23,7 +25,16 @@ itemRouter.post(
       name: createdItem.name,
     });
   })
-)
+);
+
+itemRouter.get(
+  '/marketplace',
+  expressAsyncHandler(async (req, res) => {
+    const items = await Item.find({
+      currentState: "AVAILABLE"
+    });
+    res.send(items);
+  }));
 
 itemRouter.put(
   '/:id',
@@ -38,9 +49,14 @@ itemRouter.put(
       item.category = req.body.category;
       item.owner = req.body.owner;
       const updatedItem = await item.save();
-      res.send({ message: "Item atualizado.", item: updatedItem });
+      res.send({
+        message: "Item atualizado.",
+        item: updatedItem
+      });
     } else {
-      res.status(404).send({ message:"Item inexistente."});
+      res.status(404).send({
+        message: "Item inexistente."
+      });
     }
   })
 );
@@ -52,9 +68,14 @@ itemRouter.delete(
     const item = await Item.findById(req.params.id);
     if (item) {
       const deleteItem = await item.remove();
-      res.send({ message: "Item removido.", Item: deleteItem });
+      res.send({
+        message: "Item removido.",
+        Item: deleteItem
+      });
     } else {
-      res.status(404).send({ message: "Item não encontrado." });
+      res.status(404).send({
+        message: "Item não encontrado."
+      });
     }
   })
 );
@@ -66,7 +87,9 @@ itemRouter.get(
     if (item) {
       res.send(item);
     } else {
-      res.status(404).send({ message: "Item não encontrado."  });
+      res.status(404).send({
+        message: "Item não encontrado."
+      });
     }
   })
 );
