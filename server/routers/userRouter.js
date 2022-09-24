@@ -69,6 +69,16 @@ userRouter.get(
     res.send(items);
   }));
 
+userRouter.get(
+  '/inventory',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const items = await Item.find({
+      owner: req.user._id
+    });
+    res.send(items);
+  }));
+
 userRouter.put(
   '/profile',
   isAuth,
