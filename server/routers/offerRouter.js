@@ -43,6 +43,25 @@ offerRouter.post(
           _id: createdOffer._id,
           itemDesired: createdOffer.itemDesired,
         });
+
+        setInterval(async function() {
+          const updatedCreatedOffer = await Offer.findById(createdOffer._id);
+          if (updatedCreatedOffer.offerState === "PENDING") {
+            updatedCreatedOffer.offerState = "CANCELED";
+            const rejectedOffer = await updatedCreatedOffer.save();
+
+            for (var itemIndex in req.body.itemsOffered) {
+              const newItem = await Item.findById(req.body.itemsOffered[itemIndex]);
+
+              if (newItem) {
+                if (newItem.currentState === "BLOCKED") {
+                  newItem.currentState = "AVAILABLE";
+                  const savedItem = await newItem.save();
+                }
+              }
+            }
+          }
+        }, 2 * 24 * 60 * 60 * 1000);
       } else {
         res.status(404).send({
           message: "Você já é dono deste item."
