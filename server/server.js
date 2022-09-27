@@ -1,6 +1,7 @@
 const userRouter = require('./routers/userRouter.js');
 const itemRouter = require('./routers/itemRouter.js');
 const offerRouter = require('./routers/offerRouter.js');
+const adminRouter = require('./routers/adminRouter.js');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -19,5 +20,6 @@ mongoose.connect(uri)
 app.use('/api/users', userRouter);
 app.use('/api/items', itemRouter);
 app.use('/api/offer', offerRouter);
+app.use('/api/admin', adminRouter);
 
 app.listen(5000, () => console.log(`Listening on port ${5000}`));
