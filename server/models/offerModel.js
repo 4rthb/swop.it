@@ -21,6 +21,12 @@ const offerSchema = new mongoose.Schema({
   offeredOwner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
+  },
+  offeredOwnerHasReviewed: {
+    type: Boolean,
+  },
+  desiredOwnerHasReviewed: {
+    type: Boolean,  
   }
 }, {
   timestamps: true

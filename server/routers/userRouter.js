@@ -143,4 +143,23 @@ userRouter.get(
   })
 );
 
+userRouter.get(
+  '/desiredOwner/:id',
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (user) {
+      res.send({
+        name: user.name,
+        address: user.address,
+        ratingList: user.ratingList,
+      });
+    } else {
+      res.status(404).send({
+        message: "Usuário Inválido."
+      });
+    }
+  })
+);
+
 module.exports = userRouter

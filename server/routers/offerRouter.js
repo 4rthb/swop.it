@@ -2,6 +2,7 @@ const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Item = require('../models/itemModel.js');
 const Offer = require('../models/offerModel.js');
+const User = require('../models/userModel.js');
 const {
   isAuth
 } = require('../utils.js');
@@ -36,6 +37,8 @@ offerRouter.post(
           offerState: "PENDING",
           desiredOwner: item.owner,
           offeredOwner: req.body.user_id,
+          offeredOwnerHasReviewed: false,
+          desiredOwnerHasReviewed: false,
         });
 
         const createdOffer = await offer.save();
@@ -74,6 +77,26 @@ offerRouter.post(
     }
   })
 );
+
+offerRouter.get(
+  '/myoffers',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const offers = await Offer.find({
+      offeredOwner: req.user._id
+    });
+    res.send(offers);
+  }));
+
+offerRouter.get(
+  '/offeredToMe',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const offers = await Offer.find({
+      desiredOwner: req.user._id
+    });
+    res.send(offers);
+  }));
 
 offerRouter.post(
   '/answer/:offerId/',
@@ -135,6 +158,55 @@ offerRouter.post(
       res.status(404).send({
         message: "Proposta não encontrada."
       });
+    }
+  })
+);
+
+offerRouter.post(
+  '/review/:offerId/',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const offerId = req.params.offerId;
+    const offer = await Offer.findById(offerId);
+
+    if (offer.offerState === "FINISHED") {
+      if (req.user._id === offer.desiredOwner.toString()) {
+        if (!offer.desiredOwnerHasReviewed) {
+          offer.desiredOwnerHasReviewed = true;
+          const offeredUser = await User.findById(offer.offeredOwner);
+
+          offeredUser.ratingList.push(req.body.rating);
+          const updatedUser = await offeredUser.save();
+          const updatedOffer = await offer.save();
+          res.status(404).send({
+            message: "Avaliação Completa."
+          });
+        } else {
+          res.status(404).send({
+            message: "Usuário já avaliado."
+          });
+        }
+      } else if (req.user._id === offer.offeredOwner.toString()) {
+        if (!offer.offeredOwnerHasReviewed) {
+          offer.offeredOwnerHasReviewed = true;
+          const desiredOwner = await User.findById(offer.desiredOwner);
+
+          desiredOwner.ratingList.push(req.body.rating);
+          const updatedUser = await desiredOwner.save();
+          const updatedOffer = await offer.save();
+          res.status(404).send({
+            message: "Avaliação Completa."
+          });
+        } else {
+          res.status(404).send({
+            message: "Usuário já avaliado."
+          });
+        }
+      } else {
+        res.status(404).send({
+          message: "Proposta não encontrada."
+        });
+      }
     }
   })
 );
