@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Landing from './components/Landing/Landing';
 import ProductRegister from './components/ProductRegister/ProductRegister';
+import EditProfile from './components/EditProfile/EditProfile';
 import './App.css';
 
 import { render } from "react-dom";
@@ -22,6 +23,7 @@ class App extends Component  {
           <Routes>
             <Route path="/" element={<Landing />}></Route>
             <Route path="/ProductRegister" element={<ProductRegister />}></Route>
+            <Route path="/EditProfile" element={<EditProfile />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

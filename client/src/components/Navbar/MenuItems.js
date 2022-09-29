@@ -11,7 +11,7 @@ export const MenuItems = [
     },
     {
         title: 'Editar Perfil',
-        url: '#',
+        url: '/EditProfile',
         cName: 'nav-links'
     },
     {
