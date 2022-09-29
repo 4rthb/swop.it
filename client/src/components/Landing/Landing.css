@@ -57,8 +57,6 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
-    background-color: rgb(230, 230, 230);
 }
 
 .product-card {
@@ -99,7 +97,7 @@
 }
 
 .owner-container {
-    margin-top: 20px;
+    margin-top: 15px;
     width: 100%;
 
     display: flex;

@@ -16,4 +16,9 @@
   --primary: #572E4F;
   --secondary: #71516b;
   --terciary: #FFA588;
+
+}
+
+body {
+  background-color: rgb(230, 230, 230);
 }

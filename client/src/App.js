@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Landing from './components/Landing/Landing';
 import ProductRegister from './components/ProductRegister/ProductRegister';
 import EditProfile from './components/EditProfile/EditProfile';
+import Product from './components/Product/Product';
 import './App.css';
 
 import { render } from "react-dom";
@@ -24,6 +25,7 @@ class App extends Component  {
             <Route path="/" element={<Landing />}></Route>
             <Route path="/ProductRegister" element={<ProductRegister />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
+            <Route path="/Product" element={<Product />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
