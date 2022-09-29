@@ -87,9 +87,50 @@ adminRouter.get(
         createdAt: {
           $gte: req.body.beginDate,
           $lt: req.body.endDate
-        }
+        },
+        offerState: "FINISHED"
       });
       res.send(offers);
+    } else {
+      res.status(404).send({
+        message: "Usuário inválido."
+      });
+    }
+  }));
+
+adminRouter.get(
+  '/categoryStats',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user.isAdmin) {
+      var categoryList = new Array();
+      const offers = await Offer.find({
+        offerState: "FINISHED"
+      });
+
+      for (var i in offers) {
+        const desiredItem = await Item.findById(offers[i].itemDesired);
+
+        var hasFound = false;
+        for (var j in categoryList) {
+          if (categoryList[j].name === desiredItem.category) {
+            categoryList[j].quantity = categoryList[j].quantity + 1;
+            hasFound = true;
+          }
+        }
+
+        if (!hasFound) {
+          categoryList.push({
+            name: desiredItem.category,
+            quantity: 1
+          });
+        }
+      }
+
+      res.send({
+        categoryList: categoryList
+      });
     } else {
       res.status(404).send({
         message: "Usuário inválido."
