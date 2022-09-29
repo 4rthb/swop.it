@@ -138,4 +138,45 @@ adminRouter.get(
     }
   }));
 
+adminRouter.get(
+  '/regionStats',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user.isAdmin) {
+      var regionList = new Array();
+      const offers = await Offer.find({
+        offerState: "FINISHED"
+      });
+
+      for (var i in offers) {
+        const desiredOwner = await User.findById(offers[i].desiredOwner);
+
+        var hasFound = false;
+        for (var j in regionList) {
+          if (regionList[j].name === desiredOwner.address) {
+            regionList[j].quantity = regionList[j].quantity + 1;
+            hasFound = true;
+          }
+        }
+
+        if (!hasFound) {
+          regionList.push({
+            name: desiredOwner.address,
+            quantity: 1
+          });
+        }
+      }
+
+      res.send({
+        categoryList: regionList
+      });
+    } else {
+      res.status(404).send({
+        message: "Usuário inválido."
+      });
+    }
+  }));
+
+
 module.exports = adminRouter
