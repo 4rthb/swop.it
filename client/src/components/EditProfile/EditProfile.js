@@ -14,13 +14,13 @@ class EditProfile extends Component {
                         <div className="data-row">
                             <input placeholder='nome' className='data-input' type="text"/>
                             <input placeholder='email' className='data-input' type="email"/>
-                            <input placeholder='cpf' className='data-input' type="number"/>
-                            <input placeholder='celular' className='data-input' type="number"/>
+                            <input placeholder='cpf' className='data-input' type="text"/>
+                            <input placeholder='celular' className='data-input' type="text"/>
                         </div>
                         <div className="data-row">
                             <input placeholder='endereço' className='data-input' type="text"/>
                             <input placeholder='cidade' className='data-input' type="text"/>
-                            <input placeholder='cep' className='data-input' type="number"/>
+                            <input placeholder='cep' className='data-input' type="text"/>
                         </div>
                         <div className="data-row">
                             <input placeholder='senha' className='data-input' type="password"/>

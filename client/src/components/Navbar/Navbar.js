@@ -28,7 +28,9 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
+                <Link className='navbar-logo-link' to='/'>
+                    <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
+                </Link>
                 <input type='text' className='searchbar' placeholder="Pesquise..."/>
             </nav>
         )

@@ -26,6 +26,10 @@
     width: 40vw;
 }
 
+.navbar-logo-link {
+    text-decoration: none;
+}
+
 .navbar-logo {
     color: #fff;
     margin-left: 20px;

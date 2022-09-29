@@ -5,9 +5,11 @@ import Landing from './components/Landing/Landing';
 import ProductRegister from './components/ProductRegister/ProductRegister';
 import EditProfile from './components/EditProfile/EditProfile';
 import Product from './components/Product/Product';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+
 import './App.css';
 
-import { render } from "react-dom";
 import {
   BrowserRouter,
   Routes,
@@ -26,6 +28,9 @@ class App extends Component  {
             <Route path="/ProductRegister" element={<ProductRegister />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
             <Route path="/Product" element={<Product />}></Route>
+            <Route path="/Login" element={<Login />}></Route>
+            <Route path="/Register" element={<Register />}></Route>
+
           </Routes>
         </div>
       </BrowserRouter>
