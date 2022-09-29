@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './ProductRegister.css'
-import placeholder from './placeholder.png'
+import placeholder from '../placeholder.png'
 import wish_icon from './wish.png'
 import local_icon from './local.png'
 import owner_icon from './owner.png'
