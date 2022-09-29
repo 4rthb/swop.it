@@ -77,4 +77,24 @@ adminRouter.post(
     }
   }));
 
+adminRouter.get(
+  '/timeInterval',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user.isAdmin) {
+      const offers = await Offer.find({
+        createdAt: {
+          $gte: req.body.beginDate,
+          $lt: req.body.endDate
+        }
+      });
+      res.send(offers);
+    } else {
+      res.status(404).send({
+        message: "Usuário inválido."
+      });
+    }
+  }));
+
 module.exports = adminRouter
