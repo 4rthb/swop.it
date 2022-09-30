@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
+import axios from 'axios';
 import banner from '../../images/banner.jpg'
 
 
@@ -6,6 +7,14 @@ import './Landing.css'
 import ProductCard from '../../components/ProductCard'
 
 export default function Landing() {
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get('/api/items/marketplace');
+            setItems(data);
+        };
+        fetchData();
+    }, [])
     return(
         <>
             <div className="banner">
@@ -24,8 +33,8 @@ export default function Landing() {
 
             <div className="marketplace" id='Marketplace' key='Marketplace'>
                 { 
-                    data.products.map(product => (
-                        <ProductCard key={product.id} product={product} />
+                    items.map((item) => (
+                        <ProductCard key={item._id} product={item} />
                     )) 
                 }
             </div>

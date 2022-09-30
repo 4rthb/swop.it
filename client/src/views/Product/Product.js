@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import './Product.css'
 import placeholder from '../../images/placeholder.png'
-import data from '../../data.js'
 import { useParams } from 'react-router-dom';
 
 
 export default function Product(props) {
+    const [product, setProduct] = useState([]);
     const { id } = useParams();
-    const product = data.products.find((x) => x.id === parseInt(id));
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get('/api/items/'+id)
+            setProduct(data);
+        };
+        fetchData();
+    }, [])
+
     if(!product) {
         return <div> Product not found </div>;
     }
-    
+
     return(
         <div className="product-container">
             <img src={product.image ? product.image : placeholder} alt={product.name} className="product-page-image" />
@@ -25,7 +33,7 @@ export default function Product(props) {
                     <a href={`/user/${product.owner}`}>
                     <div className="owner-info">
                         <div className="owner-name"> {product.owner} </div>
-                        <div className="local"> {product.location} </div>
+                        {/* <div className="local"> {product.location} </div> */}
                     </div>
                     </a>
 
