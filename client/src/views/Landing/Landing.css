@@ -1,0 +1,156 @@
+a { 
+    color: inherit; 
+    text-decoration: none; 
+}
+
+a:hover {
+    color: rgb(2, 123, 127)
+}
+
+.banner {
+    width: 100vw;
+    max-width: 100%;
+    height: 80vh;
+    position: relative;
+    display: flex;
+    text-align: left;
+}
+
+.text-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    float: left;
+    display: flex;
+    align-items: center;
+    padding-left: 10vw;
+    padding-right: 55vw;
+    background-color: rgba(2, 123, 127, 0.8);
+    -webkit-mask-image: -webkit-gradient(linear, left center, right center, 
+			color-stop(0.50,  rgba(2, 123, 127, 1)),
+			color-stop(1.00,  rgba(0,0,0,0)));
+    mask-image: -webkit-gradient(linear, left center, right center, 
+			color-stop(0.50,  rgba(2, 123, 127, 1)),
+			color-stop(1.00,  rgba(0,0,0,0)));
+}
+
+.text-container p {
+    color: antiquewhite;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2em;
+    line-height: 1.6;
+    z-index: 1;
+}
+
+.banner-image-container {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%; 
+}
+
+.marketplace {
+    margin: 0;
+    width: 100%;
+
+    padding: 3vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card {
+    width: 15vw;
+    min-width: 400px;
+    height: 40vh;
+    min-height: 550px;
+
+    margin: 1.5vh 1vw;
+
+    background-color: white;
+}
+
+.product-image {
+    width: 100%;
+}
+
+.product-content {
+    width: 100%;
+    height: 100%;
+
+    padding-left: 10%;
+    font-size: calc(5px + 0.8vw);
+}
+
+.product-name {
+    margin: 4% 0;
+    font-size: calc(10px + 1vw);
+}
+
+.product-description-container {
+    padding: 2% 3%;
+
+    width: 100%;
+    height: 20%;
+
+    background-color: rgb(251, 240, 230);
+
+    overflow: hidden;
+}
+
+.owner-container {
+    margin-top: 7%;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.owner-icon {
+
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+    background-color: rgb(230, 230, 230);
+
+    margin-right: 2%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 0.5%;
+
+    font-size: 0.7em;
+    overflow: hidden;
+}
+
+.owner-info {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.owner-name {
+    font-weight: 500;
+    margin-bottom: 0.9%;
+}
+
+.local {
+    font-size: 0.7em;
+}
+
+.product-link {
+    text-decoration: none;
+    color: black;
+}

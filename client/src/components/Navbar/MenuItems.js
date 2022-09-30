@@ -6,17 +6,17 @@ export const MenuItems = [
     },
     {
         title: 'Registrar Produto',
-        url: '/ProductRegister',
+        url: '/product/register',
         cName: 'nav-links'
     },
     {
         title: 'Editar Perfil',
-        url: '/EditProfile',
+        url: '/edit',
         cName: 'nav-links'
     },
     {
         title: 'Login',
-        url: '/Login',
+        url: '/login',
         cName: 'nav-links-mobile'
     }
 ]

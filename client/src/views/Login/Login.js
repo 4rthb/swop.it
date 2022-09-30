@@ -51,7 +51,7 @@ function Login (){
             type="password"
             placeholder="Senha"
           />
-          <Link to='/Register' className="register-link">
+          <Link to='/register' className="register-link">
             Registrar Conta
           </Link>
 
