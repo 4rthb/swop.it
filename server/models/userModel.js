@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  adress: {
+  address: {
     type: String,
     required: true
   },
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
   },
   ratingList: [ratingSchema],
 }, {
-  timestamp: true
+  timestamps: true
 })
 
 const User = mongoose.model("User", userSchema)

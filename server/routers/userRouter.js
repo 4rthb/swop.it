@@ -2,27 +2,36 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 const User = require('../models/userModel.js');
-const {generateToken, isAuth} = require('../utils.js');
+const {
+  generateToken,
+  isAuth
+} = require('../utils.js');
 
 const userRouter = express.Router();
 
-userRouter.post('/signin',expressAsyncHandler(async (req,res) => {
-  const user = await User.findOne({email:req.body.email});
+userRouter.post('/signin', expressAsyncHandler(async (req, res) => {
+  const user = await User.findOne({
+    email: req.body.email
+  });
 
-  if(user){
-    if(bcrypt.compareSync(req.body.password, user.password)){
+  if (user) {
+    if (bcrypt.compareSync(req.body.password, user.password)) {
       res.send({
         _id: user._id,
         name: user.name,
         email: user.email,
         token: generateToken(user),
       });
-      return ;
-    }else{
-      res.status(401).send({message:"Senha inválida."});
+      return;
+    } else {
+      res.status(401).send({
+        message: "Senha inválida."
+      });
     }
-  }else{
-    res.status(401).send({message:"Usuário não existente."});
+  } else {
+    res.status(401).send({
+      message: "Usuário não existente."
+    });
   }
 }));
 
@@ -66,6 +75,28 @@ userRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         token: generateToken(updatedUser),
+      });
+    }
+  })
+);
+
+userRouter.get(
+  '/profile',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      res.send({
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        adress: user.adress,
+        isAdmin: user.isAdmin,
+        ratingList: user.ratingList,
+      });
+    } else {
+      res.status(404).send({
+        message: "Acesso Inválido."
       });
     }
   })

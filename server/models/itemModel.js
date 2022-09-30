@@ -9,6 +9,10 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -22,7 +26,7 @@ const itemSchema = new mongoose.Schema({
     required: true
   },
 }, {
-  timestamp: true
+  timestamps: true
 })
 
 const Item = mongoose.model("Item", itemSchema)
