@@ -28,6 +28,25 @@ itemRouter.post(
 );
 
 itemRouter.get(
+  '/search',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const searchQuery = req.body.query;
+    const items = await Item.find({
+      $or: [{
+        name: new RegExp(searchQuery, 'i')
+      }, {
+        category: new RegExp(searchQuery, 'i')
+      }, {
+        description: new RegExp(searchQuery, 'i')
+      }],
+      currentState: "AVAILABLE"
+    });
+
+    res.send(items);
+  }));
+
+itemRouter.get(
   '/marketplace',
   expressAsyncHandler(async (req, res) => {
     const items = await Item.find({

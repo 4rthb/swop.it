@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 const User = require('../models/userModel.js');
+const Item = require('../models/itemModel.js');
 const {
   generateToken,
   isAuth
@@ -41,7 +42,7 @@ userRouter.post(
     const user = new User({
       name: req.body.name,
       email: req.body.email,
-      adress: req.body.adress,
+      address: req.body.address,
       phoneNumber: req.body.phoneNumber,
       isAdmin: false,
       password: bcrypt.hashSync(req.body.password, 8),
@@ -56,6 +57,46 @@ userRouter.post(
   })
 )
 
+userRouter.get(
+  '/search',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const searchQuery = req.body.query;
+    const users = await User.find({
+      $or: [{
+        name: new RegExp(searchQuery, 'i')
+      }, {
+        email: new RegExp(searchQuery, 'i')
+      }, {
+        address: new RegExp(searchQuery, 'i')
+      }]
+    });
+
+    res.send(users);
+  }));
+
+userRouter.get(
+  '/:userId/items',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.userId;
+    const items = await Item.find({
+      currentState: "AVAILABLE",
+      owner: userId
+    });
+    res.send(items);
+  }));
+
+userRouter.get(
+  '/inventory',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const items = await Item.find({
+      owner: req.user._id
+    });
+    res.send(items);
+  }));
+
 userRouter.put(
   '/profile',
   isAuth,
@@ -64,7 +105,7 @@ userRouter.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.adress = req.body.adress || user.adress;
+      user.address = req.body.address || user.address;
       user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
@@ -90,13 +131,32 @@ userRouter.get(
         name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
-        adress: user.adress,
+        address: user.address,
         isAdmin: user.isAdmin,
         ratingList: user.ratingList,
       });
     } else {
       res.status(404).send({
         message: "Acesso Inválido."
+      });
+    }
+  })
+);
+
+userRouter.get(
+  '/desiredOwner/:id',
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (user) {
+      res.send({
+        name: user.name,
+        address: user.address,
+        ratingList: user.ratingList,
+      });
+    } else {
+      res.status(404).send({
+        message: "Usuário Inválido."
       });
     }
   })
