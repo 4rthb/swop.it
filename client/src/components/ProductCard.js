@@ -1,9 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
+import axios from 'axios';
 import placeholder from '../images/placeholder.png'
 
 
 export default function ProductCard(props) {
     const {product} = props;
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get('/api/users/desiredOwner/'+product.owner);
+            setUser(data);
+        };
+        fetchData();
+    }, [])
+
     return(
         <div key={product._id} className="product-card">
             <a href={`/product/${product._id}`}>
@@ -11,19 +21,20 @@ export default function ProductCard(props) {
             </a>
             <div className="product-content">
                 <a href={`/product/${product._id}`}>
-                    <p className="product-name">{product.name}</p>
+                    <p className="product-name"> {product.name} </p>
                 </a>
                 <div className="product-description-container">
-                    <p className="product-description"> <b>Descrição:</b> </p>
+                    <p className="product-description"> <b> Descrição: </b> </p>
                     <p className="product-description"> {product.description} </p>
-                </div>ss
+                </div>
                 
                 <a href={`/user/${product.owner}`}>
                     <div className="owner-container">
-                        <div className="owner-icon"> {product.owner} </div>
+                        <div className="owner-icon"> {user.name} </div>
                         <div className="owner-info">
-                            <div className="owner-name"> {product.owner} </div>
-                            {/* <div className="local"> {product.location} </div>  */}
+                            <div className="owner-name"> {user.name} </div>
+                            <div className="local"> {user.address} </div> 
+                            {/* rating list here */}
                         </div>
                     </div>
                 </a>

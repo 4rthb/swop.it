@@ -5,13 +5,24 @@ import banner from '../../images/banner.jpg'
 
 import './Landing.css'
 import ProductCard from '../../components/ProductCard'
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
 
 export default function Landing() {
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await axios.get('/api/items/marketplace');
-            setItems(data);
+            try {
+                setLoading(true);
+                const { data } = await axios.get('/api/items/marketplace');
+                setLoading(false);
+                setItems(data);
+            } catch(err) {
+                setError(err.message);
+                setLoading(false);
+            }
         };
         fetchData();
     }, [])
@@ -31,13 +42,17 @@ export default function Landing() {
                 </div>
             </div>
 
-            <div className="marketplace" id='Marketplace' key='Marketplace'>
-                { 
-                    items.map((item) => (
-                        <ProductCard key={item._id} product={item} />
-                    )) 
-                }
-            </div>
+            { 
+                loading ? <LoadingBox /> : error ? (<MessageBox variant='danger'>{error}</MessageBox>) : (
+                    <div className="marketplace" id='Marketplace' key='Marketplace'>
+                        { 
+                            items.map((item) => (
+                                <ProductCard key={item._id} product={item} />
+                            )) 
+                        }
+                    </div>
+                )
+            }
         </>
     )
 }

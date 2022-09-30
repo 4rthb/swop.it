@@ -7,13 +7,20 @@ import { useParams } from 'react-router-dom';
 
 export default function Product(props) {
     const [product, setProduct] = useState([]);
+    const [user, setUser] = useState([]);
     const { id } = useParams();
+
     useEffect(() => {
+        const fetchUser = async () => {
+            const { udata } = await axios.get('/api/users/desiredOwner/'+product.owner);
+            setUser(udata);
+        };
         const fetchData = async () => {
-            const { data } = await axios.get('/api/items/'+id)
+            const { data } = await axios.get('/api/items/'+id);
             setProduct(data);
         };
         fetchData();
+        fetchUser();
     }, [])
 
     if(!product) {
@@ -27,13 +34,13 @@ export default function Product(props) {
                 <h3 className="product-page-content-name"> {product.name} </h3>
                 <p className="product-page-content-info"> Vendedor </p>
                 <div className="owner-container">
-                    <a href={`/user/${product.owner}`}>
-                        <div className="owner-icon"> {product.owner} </div>
+                    <a href={`/user/${user.name}`}>
+                        <div className="owner-icon"> {user.name} </div>
                     </a>
-                    <a href={`/user/${product.owner}`}>
+                    <a href={`/user/${user.name}`}>
                     <div className="owner-info">
-                        <div className="owner-name"> {product.owner} </div>
-                        {/* <div className="local"> {product.location} </div> */}
+                        <div className="owner-name"> {user.name} </div>
+                        <div className="local"> {user.address} </div>
                     </div>
                     </a>
 
