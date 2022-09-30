@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const ratingSchema = new mongoose.Schema({
+  rating: {
+    type: Number,
+    required: true
+  },
+}, );
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -22,6 +29,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  isAdmin: {
+    type: Boolean,
+    required: true
+  },
+  ratingList: [ratingSchema],
 }, {
   timestamp: true
 })

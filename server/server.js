@@ -1,4 +1,5 @@
 const userRouter = require('./routers/userRouter.js');
+const itemRouter = require('./routers/itemRouter.js');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -14,8 +15,7 @@ dotenv.config();
 
 mongoose.connect(uri)
 
-const productRoutes = require('./routes/products/products')
-app.use(productRoutes);
 app.use('/api/users', userRouter);
+app.use('/api/items', itemRouter);
 
 app.listen(5000, () => console.log(`Listening on port ${5000}`));
