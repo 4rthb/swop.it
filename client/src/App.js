@@ -1,31 +1,40 @@
+import logo from './logo.svg';
 import React, { Component } from 'react';
-import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import Login from './component/loginS';
-import Register from './component/registerS';
-import RegProd from './component/prodregS';
+import Navbar from './components/Navbar/Navbar';
+import Landing from './components/Landing/Landing';
+import ProductRegister from './components/ProductRegister/ProductRegister';
+import EditProfile from './components/EditProfile/EditProfile';
+import Product from './components/Product/Product';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+
 import './App.css';
 
-class App extends Component {
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+class App extends Component  {
   render() {
+
     return (
-       <Router>
-           <div className="App">
-            <ul className="App-header">
-              <li>
-                <Link to="/">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </ul>
-           <Routes>
-                 <Route exact path='/' element={< Login />}></Route>
-                 <Route exact path='/register' element={< Register />}></Route>
-                 <Route exact path='/marketplace/new' element={< RegProd />}></Route>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Landing />}></Route>
+            <Route path="/ProductRegister" element={<ProductRegister />}></Route>
+            <Route path="/EditProfile" element={<EditProfile />}></Route>
+            <Route path="/Product" element={<Product />}></Route>
+            <Route path="/Login" element={<Login />}></Route>
+            <Route path="/Register" element={<Register />}></Route>
+
           </Routes>
-          </div>
-       </Router>
-   );
+        </div>
+      </BrowserRouter>
+    );
   }
 }
 

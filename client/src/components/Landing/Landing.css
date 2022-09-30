@@ -1,0 +1,148 @@
+.banner {
+    width: 100vw;
+    max-width: 100%;
+    height: 80vh;
+    position: relative;
+    display: flex;
+}
+.text-container {
+    width: 40%;
+    height: 100%;
+
+    background-color: #027b7f;
+}
+
+.banner-image-container {
+    position: relative;
+    width: 60%;
+    height: 100%;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+}
+.fade {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    background-color: rgb(220, 220, 187);
+    height: 100%;
+    --fadeWidth: 25%;
+    width: var(--fadeWidth);
+}
+.fade:nth-child(5) {
+    opacity: 0.3;
+    left: calc(var(--fadeWidth) * 3);
+}
+.fade:nth-child(4) {
+    opacity: 0.4;
+    left: calc(var(--fadeWidth) * 2);
+}
+.fade:nth-child(3) {
+    opacity: 0.6;
+    left: calc(var(--fadeWidth) * 1);
+}
+.fade:nth-child(2) {
+    opacity: 0.8;
+    left: calc(var(--fadeWidth) * 0);
+}
+
+.marketplace {
+    margin: 0;
+    width: 100%;
+
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    width: 400px;
+    height: 550px;
+
+    margin-top: 20px;
+    margin-right: 20px;
+
+    background-color: white;
+}
+
+.product-image {
+    width: 100%;
+}
+
+.product-content {
+    width: 100%;
+    height: 100%;
+
+    padding-left: 30px;
+}
+
+.product-name {
+    margin: 15px 0;
+}
+
+.product-description-container {
+    padding: 10px;
+    padding-right: 0;
+
+    width: 100%;
+    height: 100px;
+
+    background-color: rgb(251, 240, 230);
+
+    overflow: hidden;
+}
+
+.owner-container {
+    margin-top: 15px;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.owner-icon {
+
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+    background-color: rgb(230, 230, 230);
+
+    margin-right: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 4px;
+
+    font-size: 12px;
+}
+
+.owner-info {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.owner-name {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.local {
+    font-size: 0.9rem;
+}
+
+.product-link {
+    text-decoration: none;
+    color: black;
+}
