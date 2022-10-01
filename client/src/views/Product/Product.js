@@ -11,16 +11,16 @@ export default function Product(props) {
     const { id } = useParams();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const { udata } = await axios.get('/api/users/desiredOwner/'+product.owner);
-            setUser(udata);
-        };
+        // const fetchUser = async () => {
+        //     const { udata } = await axios.get('/api/users/desiredOwner/'+product.owner);
+        //     setUser(udata);
+        // };
         const fetchData = async () => {
             const { data } = await axios.get('/api/items/'+id);
             setProduct(data);
         };
         fetchData();
-        fetchUser();
+        // fetchUser();
     }, [])
 
     if(!product) {
@@ -46,7 +46,7 @@ export default function Product(props) {
 
                     <div className="product-page-content-wish">
                         <span className='wish-content wish-title'> Desejo: </span>
-                        <span className='wish-content'> 1 Dolar </span>
+                        <span className='wish-content'> {product.expected} </span>
                     </div>
                 </div>
                 <p className="product-page-content-info">Descrição</p>

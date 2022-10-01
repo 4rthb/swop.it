@@ -76,7 +76,9 @@ a:hover {
 }
 
 .product-image {
+    aspect-ratio: 16 / 9;
     width: 100%;
+    overflow: hidden;
 }
 
 .product-content {

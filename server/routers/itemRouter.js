@@ -14,6 +14,7 @@ itemRouter.post(
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
+      expected: req.body.expected,
       image: req.body.imageUrl,
       category: req.body.category,
       currentState: "AVAILABLE",
@@ -64,6 +65,7 @@ itemRouter.put(
     if (item) {
       item.name = req.body.name;
       item.description = req.body.description;
+      item.expected = req.body.expected;
       item.currentState = req.body.currentState;
       item.category = req.body.category;
       item.owner = req.body.owner;
