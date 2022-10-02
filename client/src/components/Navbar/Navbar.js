@@ -1,41 +1,59 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { MenuItems } from "./MenuItems"
 import { Link } from 'react-router-dom'
 
 import './Navbar.css'
+import { signout } from '../../actions/userActions'
+import { useDispatch, useSelector } from 'react-redux'
 
-class Navbar extends Component {
-    state = { clicked: false }
+export default function Navbar() {
+    const [clicked, setClicked] = useState('');
+    const dispatch = useDispatch();
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo, loading, err } = userSignin;
 
-    handleClick = () => {
-        this.setState({ clicked: !this.state.clicked })
+    const menuHandler = () => {
+        setClicked(clicked => !clicked)
     }
 
-    render() {
-        return(
-            <nav className="NavbarItems">
-                <div className="menu-icon" onClick={ this.handleClick}>
-                    <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-                </div>
-                <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-                    {MenuItems.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <Link to={item.url} className={item.cName}>
-                                {item.title}
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-                <Link className='navbar-logo-link' to='/'>
-                    <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
-                </Link>
-                <input type='text' className='searchbar' placeholder="Pesquise..."/>
-            </nav>
-        )
+    const logoutHandler = () => {
+        dispatch(signout());
     }
+    
+    return(
+        <nav className="NavbarItems">
+            <div className="menu-icon" onClick={menuHandler}>
+                <i className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+            </div>
+            <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
+                {MenuItems.map((item, index) => {
+                    return (
+                        <li key={index}>
+                            <Link to={item.url} className={item.cName}>
+                            {item.title}
+                            </Link>
+                        </li>
+                    )
+                })}
+                {userInfo ? (
+                    <li key='4'>
+                        <Link to='/' className='nav-links-mobile' onClick={logoutHandler}>
+                        Logout
+                        </Link>
+                    </li>
+                 ) : (
+                    <li key='4'>
+                        <Link to='/login' className='nav-links-mobile'>
+                        Login
+                        </Link>
+                    </li>
+                )}
+            </ul>
+            <Link className='navbar-logo-link' to='/'>
+                <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
+            </Link>
+            <input type='text' className='searchbar' placeholder="Pesquise..."/>
+        </nav>
+    )
 
 }
-
-export default Navbar

@@ -5,7 +5,7 @@ import ProductCard from '../../components/ProductCard'
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { dispatch, listProducts } from '../../actions/productActions';
+import { listProducts } from '../../actions/productActions';
 import SearchFilter from '../../components/SearchFilter/SearchFilter';
 
 export default function Landing() {
@@ -15,7 +15,7 @@ export default function Landing() {
 
     useEffect(() => {
         dispatch(listProducts());
-    }, []);
+    }, [dispatch]);
     return(
         <>
             <div className="banner">

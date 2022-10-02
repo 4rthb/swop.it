@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './ProductRegister.css'
 import placeholder from '../../images/placeholder.png'
 import wish_icon from '../../images/wish.png'

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import axios from 'axios';
 import placeholder from '../images/placeholder.png'
 
@@ -12,7 +12,7 @@ export default function ProductCard(props) {
             setUser(data);
         };
         fetchData();
-    }, [])
+    }, [product])
 
     return(
         <div key={product._id} className="product-card">
