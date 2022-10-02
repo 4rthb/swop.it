@@ -28,7 +28,7 @@ export default function Login() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate.push(redirect);
+      navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
 
@@ -54,7 +54,7 @@ export default function Login() {
             type="password"
             placeholder="Senha"
           />
-          <Link to='/register' className="register-link">
+          <Link to={`/register?redirect=${redirect}`} className="register-link">
             Registrar Conta
           </Link>
 

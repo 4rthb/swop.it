@@ -40,6 +40,10 @@ code {
   display: block;
 }
 
+.loading {
+  display: block !important;
+}
+
 .alert {
   position: fixed;
   left: 50%;

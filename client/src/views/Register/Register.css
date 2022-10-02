@@ -1,0 +1,92 @@
+.container-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    top: 0
+}
+
+.register-card {
+    margin-top: 10px;
+    width: 75%;
+    height: 65%;
+
+    text-align: center;
+
+    background-color: #1F9C88;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 15px 50px;
+}
+
+.register-form{
+    width: 100%;
+    height: 100%;
+}
+
+.data-input {
+    margin: 10px 5px;
+
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    width: 48%;
+    height: 30px;
+    padding-left: 5px;
+}
+
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+
+    margin: 10px 0;
+}
+
+.register-submit {
+    margin-top: 10px;
+
+    background-color: #55a295;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.register-submit:hover:enabled {
+    background-color: white;
+    color: black;
+}
+
+.login-row {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.login-link {
+    margin-top: 6px;
+
+    text-decoration: none;
+    color: white;
+
+    font-size: 0.9rem;
+    font-weight: 200;
+}
+
+::placeholder {
+    opacity: 0.6;
+}
