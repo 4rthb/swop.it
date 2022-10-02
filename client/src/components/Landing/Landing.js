@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import banner from './banner.jpg'
 import placeholder from '../placeholder.png'
 import { Link } from 'react-router-dom'
+import SearchFilter from '../SearchFilter/SearchFilter'
 
 import './Landing.css'
 
@@ -24,6 +25,9 @@ class Landing extends Component {
                 </div>
 
                 <div className="marketplace" id='Marketplace'key='Marketplace'>
+
+                    <SearchFilter />
+
                     <Link to='/Product' className='product-link'>
                         <div className="product-card">
                             <img src={placeholder} alt="product image" className="product-image" />
