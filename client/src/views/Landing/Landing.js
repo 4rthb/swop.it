@@ -1,31 +1,20 @@
-import React, { Component, useEffect, useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from 'react'
 import banner from '../../images/banner.jpg'
-
-
 import './Landing.css'
 import ProductCard from '../../components/ProductCard'
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { dispatch, listProducts } from '../../actions/productActions';
 
 export default function Landing() {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
+    const dispatch = useDispatch();
+    const productList = useSelector((state) => state.productList);
+    const {loading, err, products} = productList;
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const { data } = await axios.get('/api/items/marketplace');
-                setLoading(false);
-                setItems(data);
-            } catch(err) {
-                setError(err.message);
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [])
+        dispatch(listProducts());
+    }, []);
     return(
         <>
             <div className="banner">
@@ -43,11 +32,11 @@ export default function Landing() {
             </div>
 
             { 
-                loading ? <LoadingBox /> : error ? (<MessageBox variant='danger'>{error}</MessageBox>) : (
+                loading ? <LoadingBox /> : err ? (<MessageBox variant='danger'>{err}</MessageBox>) : (
                     <div className="marketplace" id='Marketplace' key='Marketplace'>
                         { 
-                            items.map((item) => (
-                                <ProductCard key={item._id} product={item} />
+                            products.map((product) => (
+                                <ProductCard key={product._id} product={product} />
                             )) 
                         }
                     </div>

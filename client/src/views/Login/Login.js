@@ -1,41 +1,44 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { useState, useEffect } from 'react'
+import { signin } from '../../actions/userActions';
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
 import './Login.css'
 
-function Login (){
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo, loading, err } = userSignin;
 
-  async function loginUser(event) {
-    event.preventDefault()
+  const redirect = location.search
+    ? location.search.split('=')[1]
+    : '/';
 
-    await fetch('http://localhost:5000/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then(response => {
-      return response.json();
-    }).then(json => {
-      if(json.status === "success"){
-        navigate("/marketplace/new");
-      }
-    }).then(window.sessionStorage.setItem("email", email));
-  }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signin(email, password));
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate.push(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
   return (
     <div className="container-login">
       <div className="login-card">
         <h1>Login</h1>
-        <form onSubmit={loginUser} className="login-form">
+        {loading && <LoadingBox></LoadingBox>}
+        {err && <MessageBox variant="danger" onclick=''>{err}</MessageBox>}
+        <form onSubmit={submitHandler} className="login-form">
           <input
             className="login-input"
             value={email}
@@ -61,5 +64,3 @@ function Login (){
     </div>
   )
 }
-
-export default Login;

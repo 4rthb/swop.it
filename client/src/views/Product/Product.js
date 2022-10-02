@@ -1,57 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux';
 import './Product.css'
 import placeholder from '../../images/placeholder.png'
 import { useParams } from 'react-router-dom';
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
+import { detailsProduct } from '../../actions/productActions';
 
 
 export default function Product(props) {
-    const [product, setProduct] = useState([]);
-    const [user, setUser] = useState([]);
-    const { id } = useParams();
-
+    const productID = useParams();
+    const dispatch = useDispatch();
+    const productDetails = useSelector((state) => state.productDetails);
+    const { loading, err, data } = productDetails;
     useEffect(() => {
-        // const fetchUser = async () => {
-        //     const { udata } = await axios.get('/api/users/desiredOwner/'+product.owner);
-        //     setUser(udata);
-        // };
-        const fetchData = async () => {
-            const { data } = await axios.get('/api/items/'+id);
-            setProduct(data);
-        };
-        fetchData();
-        // fetchUser();
-    }, [])
-
-    if(!product) {
-        return <div> Product not found </div>;
-    }
+        dispatch(detailsProduct(productID));
+    }, [dispatch, productID]);
 
     return(
-        <div className="product-container">
-            <img src={product.image ? product.image : placeholder} alt={product.name} className="product-page-image" />
-            <div className="product-page-content">
-                <h3 className="product-page-content-name"> {product.name} </h3>
-                <p className="product-page-content-info"> Vendedor </p>
-                <div className="owner-container">
-                    <a href={`/user/${user.name}`}>
-                        <div className="owner-icon"> {user.name} </div>
-                    </a>
-                    <a href={`/user/${user.name}`}>
-                    <div className="owner-info">
-                        <div className="owner-name"> {user.name} </div>
-                        <div className="local"> {user.address} </div>
+        <div>
+            { 
+                loading ? <LoadingBox /> : err ? (<MessageBox variant='danger'>{err}</MessageBox>) : (
+                    <div className="product-container">
+                        <img src={data.item.image ? data.item.image : placeholder} alt={data.item.name} className="product-page-image" />
+                        <div className="product-page-content">
+                            <h3 className="product-page-content-name"> {data.item.name} </h3>
+                            <p className="product-page-content-info"> Vendedor </p>
+                            <div className="owner-container">
+                                <a href={`/user/${data.user.name}`}>
+                                    <div className="owner-icon"> {data.user.name} </div>
+                                </a>
+                                <a href={`/user/${data.user.name}`}>
+                                <div className="owner-info">
+                                    <div className="owner-name"> {data.user.name} </div>
+                                    <div className="local"> {data.user.address} </div>
+                                </div>
+                                </a>
+            
+                                <div className="product-page-content-wish">
+                                    <span className='wish-content wish-title'> Desejo: </span>
+                                    <span className='wish-content'> {data.item.expected} </span>
+                                </div>
+                            </div>
+                            <p className="product-page-content-info">Descrição</p>
+                            <div className="product-page-content-description"> {data.item.description} </div>
+                        </div>
                     </div>
-                    </a>
-
-                    <div className="product-page-content-wish">
-                        <span className='wish-content wish-title'> Desejo: </span>
-                        <span className='wish-content'> {product.expected} </span>
-                    </div>
-                </div>
-                <p className="product-page-content-info">Descrição</p>
-                <div className="product-page-content-description"> {product.description} </div>
-            </div>
+                )
+            }
         </div>
     );
 }

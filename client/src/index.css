@@ -12,10 +12,47 @@ code {
     monospace;
 }
 
+.success {
+  color: #20a020;
+}
+
+.danger {
+  color: #a02020;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0%;
+  background-color: rgba(116, 116, 116, 0.5);
+  visibility: hidden;
+  display: none;
+}
+
+.background-info {
+  animation: fadeOut 0.3s;
+}
+
+.background-danger {
+
+  visibility: visible;
+  display: block;
+}
+
 .alert {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+
   padding: 1rem;
+  width: 18rem;
+
   border: 0.1rem solid transparent;
   border-radius: 0.5rem;
+
+  transform: translate(-50%, -50%);
+  animation: fadeIn 0.3s;
 }
 
 .alert-info {
@@ -25,5 +62,16 @@ code {
 
 .alert-danger {
   color: #a02020;
-  background-color: #ffe0e0e0;
+  background-color: #fcacace0;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0;
+    visibility: hidden;
+    display: none; }
 }
