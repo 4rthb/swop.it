@@ -6,6 +6,7 @@ import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { dispatch, listProducts } from '../../actions/productActions';
+import SearchFilter from '../../components/SearchFilter/SearchFilter';
 
 export default function Landing() {
     const dispatch = useDispatch();
@@ -30,6 +31,8 @@ export default function Landing() {
                     <img src={banner} alt="hero banner" className="banner-image" />
                 </div>
             </div>
+
+            <SearchFilter />
 
             { 
                 loading ? <LoadingBox /> : err ? (<MessageBox variant='danger'>{err}</MessageBox>) : (

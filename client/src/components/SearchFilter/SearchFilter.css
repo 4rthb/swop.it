@@ -1,0 +1,109 @@
+.filter-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    position: relative;
+}
+
+.filter-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    --filterHeight: 40px;
+    height: var(--filterHeight);
+    width: 40px;
+
+    border-radius: 50%;
+
+    background-color: white;
+
+    overflow: hidden;
+
+    z-index: 4;
+}
+
+.filter-icon-image {
+    height: 90%;
+}
+
+.filter-text {
+    z-index: 4;
+
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 1.2rem;
+
+    color: white;
+}
+
+.filter-base {
+    z-index: 3;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    border-radius: 4px;
+
+    background-color: var(--primary);
+
+    transition: width 0.4s, height 0.4s;
+
+    padding: 5px;
+
+    --inactive-width: 100px;
+}
+
+.filter-inactive {
+    height: 50px;
+    width: var(--inactive-width);
+}
+
+.filter-active {
+    height: 200px;
+    width: 300px;
+}
+.filter-form {
+    padding-right: var(--inactive-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+}
+
+@keyframes appear {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+.filter-active > .filter-form {
+    animation: appear 1s ease-out;
+}
+
+.filter-inactive > * {
+    display: none;
+}
+
+.filter-submit {
+    width: 60px;
+    height: 30px;
+
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 2px;
+    color: white;
+}
+
+.filter-submit:hover {
+    background-color: white;
+    color: black;
+}
+
+.filter-input-container {
+    width: 80%;
+}
