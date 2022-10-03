@@ -52,7 +52,10 @@ export default function Navbar() {
             <Link className='navbar-logo-link' to='/'>
                 <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
             </Link>
-            <input type='text' className='searchbar' placeholder="Pesquise..."/>
+            <form className='searchbar-form' action="/" method="get">
+                <input type='text' id='header-search' className='searchbar' placeholder="Pesquise..." name='s'/>
+                <input className='search-hidden' type='submit' value='Search' />
+            </form>
         </nav>
     )
 

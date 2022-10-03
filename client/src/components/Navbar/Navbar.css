@@ -170,3 +170,14 @@
     background-size: auto 100%;
     background-repeat: no-repeat;
 }
+
+.searchbar-form {
+    position: absolute;
+    width: 0;
+    right: 10px;
+    height: 30px;
+}
+
+.search-hidden {
+    display: none;
+}

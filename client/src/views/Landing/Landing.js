@@ -7,11 +7,35 @@ import MessageBox from '../../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../actions/productActions';
 import SearchFilter from '../../components/SearchFilter/SearchFilter';
+import { useLocation } from 'react-router-dom';
 
 export default function Landing() {
+    const filterProducts = (products, query) => {
+        if (!query || !products) {
+            return products;
+        }
+        console.log(products);
+        return products.filter((product) => {
+            const productName = product.name.toLowerCase();
+            return productName.includes(query.toLowerCase());
+        });
+    };
+
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.productList);
     const {loading, err, products} = productList;
+
+    const { search } = window.location;
+    const location = useLocation();
+    let query = new URLSearchParams(search).get('s');
+    let filteredProducts = filterProducts(products, query);
+
+
+    useEffect(() => {
+        query = new URLSearchParams(location.pathname).get('s');
+        filteredProducts = filterProducts(products, query);
+    }, [location]);
+    
 
     useEffect(() => {
         dispatch(listProducts());
@@ -38,7 +62,7 @@ export default function Landing() {
                 loading ? <LoadingBox /> : err ? (<MessageBox variant='danger'>{err}</MessageBox>) : (
                     <div className="marketplace" id='Marketplace' key='Marketplace'>
                         { 
-                            products.map((product) => (
+                            filteredProducts.map((product) => (
                                 <ProductCard key={product._id} product={product} />
                             )) 
                         }
