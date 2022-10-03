@@ -127,6 +127,7 @@ userRouter.get(
   '/profile',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log(req.user);
     const user = await User.findById(req.user._id);
     if (user) {
       res.send({
