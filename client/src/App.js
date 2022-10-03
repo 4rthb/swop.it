@@ -6,6 +6,8 @@ import EditProfile from './views/EditProfile/EditProfile';
 import Product from './views/Product/Product';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
+import Profile from './views/Profile/Profile';
+
 
 import './App.css';
 
@@ -29,7 +31,7 @@ class App extends Component  {
             <Route path="/product/:id" element={<Product />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-
+            <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

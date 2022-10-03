@@ -3,6 +3,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-right: 5px;
+    padding-top: 5px;
 
     position: relative;
 }
@@ -42,8 +44,8 @@
 .filter-base {
     z-index: 3;
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 5px;
+    right: 5px;
 
     border-radius: 4px;
 

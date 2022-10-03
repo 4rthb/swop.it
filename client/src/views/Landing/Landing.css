@@ -59,16 +59,17 @@ a:hover {
     padding: 20px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
 .product-card {
+    margin: 0 auto;
     width: 400px;
     height: 550px;
 
     margin-top: 20px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
 
     background-color: white;
 }
