@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../../components/ProductCard'
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
@@ -7,11 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../actions/productActions';
 import { detailsUser } from '../../actions/userActions';
 import SearchFilter from '../../components/SearchFilter/SearchFilter';
-import ratings from '../../components/Rating';
+import Rating from '../../components/Rating';
+
+const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
 export default function Profile() {
+    const [rating, setRating] = useState(0);
+    const [reviews, setReviews] = useState(0);
     const dispatch = useDispatch();
-    const productList = useSelector((state) => state.productList);
+    const productList = useSelector((state) => state.productList); // mudar aqui
     const {loading, err, products} = productList;
 
     const detailsUserVar = useSelector((state) => state.detailsUser);
@@ -22,30 +26,26 @@ export default function Profile() {
     useEffect(() => {
         dispatch(listProducts());
         dispatch(detailsUser(userInfo));
-
-        console.log(userDetails);
-    }, [dispatch,userInfo]);
-
-    const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
-
-    
+        if(userDetails) {
+            setRating(average(userDetails.ratingList));
+            setReviews(userDetails.ratingList.size())
+        }
+    }, [dispatch, userInfo, userDetails]);
 
     return(
         <>
             <div className="profile-container">
                 <div className="owner-container">
-                    <a href={`/user/${userInfo.name}`}>
+                    <a href={`/user/${userInfo._id}}`}>
                         <div className="owner-icon owner-icon-profile"> {userInfo.name} </div>
                     </a>
-                    <a href={`/user/${userInfo.name}`}>
+                    <a href={`/user/${userInfo._id}`}>
                     <div className="owner-info">
                         <div className="owner-name"> {userInfo.name} </div>
                         <div className="local"> {userInfo.address} </div>
                     </div>
                     </a>
-                    <span className="profile-rating">Avaliação:</span>
-                    <span className="profile-rating-value"> 0 </span>    
-                    {/* { userDetails ? 0 : average(userDetails.ratingList)} */}
+                    <Rating rating={rating} numReviews={reviews}/>
                 </div>
             </div>
 

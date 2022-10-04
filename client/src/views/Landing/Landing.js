@@ -14,7 +14,6 @@ export default function Landing() {
         if (!query || !products) {
             return products;
         }
-        console.log(products);
         return products.filter((product) => {
             const productName = product.name.toLowerCase();
             return productName.includes(query.toLowerCase());

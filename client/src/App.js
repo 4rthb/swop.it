@@ -33,6 +33,7 @@ class App extends Component  {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/user/:id" element={<Profile />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
