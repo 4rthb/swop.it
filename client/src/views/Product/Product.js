@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import './Product.css'
 import placeholder from '../../images/placeholder.png'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { detailsProduct } from '../../actions/productActions';
@@ -13,6 +13,7 @@ export default function Product(props) {
     const dispatch = useDispatch();
     const productDetails = useSelector((state) => state.productDetails);
     const { loading, err, data } = productDetails;
+    
     useEffect(() => {
         dispatch(detailsProduct(productID));
     }, [dispatch, productID]);
@@ -44,6 +45,7 @@ export default function Product(props) {
                             </div>
                             <p className="product-page-content-info">Descrição</p>
                             <div className="product-page-content-description"> {data.item.description} </div>
+                            <Link className="product-offer" to={`/offer/${productID.id}`}>Fazer Oferta</Link>
                         </div>
                     </div>
                 )
