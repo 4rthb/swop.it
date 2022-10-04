@@ -13,10 +13,12 @@ export default function ProductCard(props) {
         const fetchData = async () => {
             const { data } = await axios.get('/api/users/desiredOwner/'+product.owner);
             setUser(data);
-            setRating(average(user.ratingList));
+            if(user && user.ratingList) {
+                setRating(average(user.ratingList));
+            }
         };
         fetchData();
-    }, [product])
+    }, [product, user])
 
     return(
         <div key={product._id} className="product-card">

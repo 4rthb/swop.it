@@ -7,7 +7,8 @@ import Product from './views/Product/Product';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Profile from './views/Profile/Profile';
-
+import Offer from './views/Offer/Offer';
+import Offers from './views/Offers/Offers';
 
 import './App.css';
 
@@ -16,7 +17,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Offer from './views/Offer/Offer';
 
 class App extends Component  {
 
@@ -32,6 +32,7 @@ class App extends Component  {
             <Route path="/edit" element={<EditProfile />}></Route>
             <Route path="/product/:id" element={<Product />}></Route>
             <Route path="/offer/:id" element={<Offer />}></Route>
+            <Route path="/offers" element={<Offers />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/profile" element={<Profile />}></Route>

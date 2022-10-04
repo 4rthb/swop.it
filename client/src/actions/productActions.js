@@ -1,10 +1,9 @@
 import Axios from "axios";
-import { PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAILED, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REGISTER_FAILED, PRODUCT_REGISTER_REQUEST, PRODUCT_REGISTER_SUCCESS, PRODUCT_OWNERLIST_FAILED, PRODUCT_OWNERLIST_REQUEST, PRODUCT_OWNERLIST_SUCCESS } from "../constants/productConst";
+import { PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAILED, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REGISTER_FAILED, PRODUCT_REGISTER_REQUEST, PRODUCT_REGISTER_SUCCESS, PRODUCT_OWNERLIST_FAILED, PRODUCT_OWNERLIST_REQUEST, PRODUCT_OWNERLIST_SUCCESS, PRODUCT_BASIC_REQUEST, PRODUCT_BASIC_SUCCESS, PRODUCT_BASIC_FAILED } from "../constants/productConst";
 
 export const registerProduct = (name, description, expected, imageUrl, category, owner) => async (dispatch) => {
     dispatch({ type: PRODUCT_REGISTER_REQUEST, payload: { name, owner } });
     try {
-        // Axios.defaults.headers.common['Authorization'] = `Bearer ${owner.token}`;
         const user_id = owner._id;
         const { data } = await Axios.post('/api/items/register', { name, description, expected, imageUrl, category, user_id }, 
                                             { headers: { Authorization: `Bearer ${owner.token}` }});
@@ -40,6 +39,20 @@ export const detailsProduct = (productID) => async (dispatch) => {
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
     } catch(err) {
         dispatch({type: PRODUCT_DETAILS_FAILED, 
+                  payload: err.response && err.response.data.message ? 
+                           err.response.data.message : 
+                           err.message,
+        });
+    }
+};
+
+export const basicProduct = (productID) => async (dispatch) => {
+    dispatch({type: PRODUCT_BASIC_REQUEST, payload: productID});
+    try {
+        const bdata = await Axios.get(`/api/items/${productID}`);
+        dispatch({type: PRODUCT_BASIC_SUCCESS, payload: bdata});
+    } catch(err) {
+        dispatch({type: PRODUCT_BASIC_FAILED, 
                   payload: err.response && err.response.data.message ? 
                            err.response.data.message : 
                            err.message,

@@ -60,7 +60,6 @@ export const detailsUser = (user) => async (dispatch) => {
 export const basicUser = (id) => async (dispatch) => {
     dispatch({ type: USER_BASIC_REQUEST, payload: { id } });
     try {
-        console.log(`/desiredOwner/${id.id}`);
         const { data } = await Axios.get(`/desiredOwner/${id.id}`,  id.id );
         console.log(data);
         dispatch({ type: USER_BASIC_SUCCESS, payload: data });
