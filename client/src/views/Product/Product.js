@@ -53,6 +53,7 @@ export default function Product(props) {
                                 </div>
                             </div>
                             <p className="product-page-content-info">Descrição</p>
+                            <p className="product-page-content-category">Categoria: {data.item.category}</p>
                             <div className="product-page-content-description"> {data.item.description} </div>
                             <Link className="product-offer" to={`/offer/${productID.id}`}>Fazer Oferta</Link>
                         </div>

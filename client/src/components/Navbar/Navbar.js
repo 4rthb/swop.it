@@ -60,7 +60,7 @@ export default function Navbar() {
                 <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
             </Link>
             <form className='searchbar-form' action="/" method="get">
-                <input type='text' id='header-search' className='searchbar' placeholder="Pesquise..." name='s'/>
+                <input type='text' id='header-search' className='searchbar' placeholder="Pesquise..." name='Search'/>
                 <input className='search-hidden' type='submit' value='Search' />
             </form>
         </nav>

@@ -11,13 +11,42 @@ import { useLocation } from 'react-router-dom';
 
 export default function Landing() {
     const filterProducts = (products, query) => {
-        if (!query || !products) {
-            return products;
+        let filteredProducts = products;
+
+
+        if (query && filteredProducts)
+            filteredProducts = filteredProducts.filter((product) => {
+                const productName = product.name.toLowerCase();
+                return productName.includes(query.toLowerCase());
+            });
+
+        console.log(filteredProducts);
+
+        query = new URL(window.location.href).searchParams.get("Ordem");//new URLSearchParams(location.pathname).get('Ordem');
+
+        if (query && filteredProducts)
+        {
+            filteredProducts = filteredProducts.sort((a,b) => {
+                if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+                if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+                return 0;
+            });
+
         }
-        return products.filter((product) => {
-            const productName = product.name.toLowerCase();
-            return productName.includes(query.toLowerCase());
-        });
+
+        query = new URL(window.location.href).searchParams.get("Categoria");
+
+        if (query && filteredProducts)
+        {
+            filteredProducts = filteredProducts.filter((product) => {
+                const productCategory = product.category.toLowerCase();
+                return productCategory === query.toLowerCase();
+            });
+
+
+        }
+
+        return filteredProducts;
     };
 
     const dispatch = useDispatch();
@@ -26,12 +55,12 @@ export default function Landing() {
 
     const { search } = window.location;
     const location = useLocation();
-    let query = new URLSearchParams(search).get('s');
+    let query = new URLSearchParams(search).get('Search');
     let filteredProducts = filterProducts(products, query);
 
 
     useEffect(() => {
-        query = new URLSearchParams(location.pathname).get('s');
+        query = new URLSearchParams(location.pathname).get('Search');
         filteredProducts = filterProducts(products, query);
     }, [location]);
     
