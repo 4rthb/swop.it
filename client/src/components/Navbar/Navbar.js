@@ -38,11 +38,21 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li key='3'>
+                            <Link to='/profile' className='nav-links'>
+                            Perfil
+                            </Link>
+                        </li>
+                        <li key='4'>
+                            <Link to='/offers' className='nav-links'>
+                            Minhas trocas
+                            </Link>
+                        </li>
+                        <li key='5'>
                             <Link to='/edit' className='nav-links'>
                             Editar Perfil
                             </Link>
                         </li>
-                        <li key='4'>
+                        <li key='6'>
                             <Link to='/' className='nav-links-mobile' onClick={logoutHandler}>
                             Logout
                             </Link>

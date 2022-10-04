@@ -21,28 +21,28 @@ export default function ProductRegister() {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
     const [expected, setExpected] = useState('');
     const [image, setImage] = useState('');
-    const [category, setCategory] = useState('');
-    const [currentState, setCurrentState] = useState('');
 
     const redirect = location.search
     ? location.search.split('=')[1]
     : '/';
 
     const itemRegister = useSelector((state) => state.itemRegister);
-    const { itemInfo, loading, err } = itemRegister;
+    const { productInfo } = itemRegister;
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(registerProduct(name, description, expected, image, "batata", userInfo));
+        dispatch(registerProduct(name, description, expected, image, category, userInfo));
     };
 
     useEffect(() => {
-        if (itemInfo) {
+        if (productInfo) {
+            alert('Item registrado com sucesso');
         navigate(redirect);
         }
-    }, [navigate, redirect, itemInfo]);
+    }, [navigate, redirect, productInfo]);
 
     return(
         <form onSubmit={submitHandler}>
@@ -69,7 +69,7 @@ export default function ProductRegister() {
                             <div className="info">
                                 <div className="info-icon" > <img src={category_icon} alt="category icon" /></div>
                                 <label htmlFor="category">Categoria:</label>
-                                <input placeholder='Automóveis, livros ...' className='info-input' type="text" id='category'/>
+                                <input onChange={(e) => setCategory(e.target.value)} placeholder='Automóveis, livros ...' className='info-input' type="text" id='category'/>
                             </div>
                         </div>
                     </div>

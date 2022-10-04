@@ -1,4 +1,4 @@
-import { PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAILED, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REGISTER_FAILED, PRODUCT_REGISTER_REQUEST, PRODUCT_REGISTER_SUCCESS, PRODUCT_OWNERLIST_FAILED, PRODUCT_OWNERLIST_REQUEST, PRODUCT_OWNERLIST_SUCCESS } from "../constants/productConst";
+import { PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAILED, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REGISTER_FAILED, PRODUCT_REGISTER_REQUEST, PRODUCT_REGISTER_SUCCESS, PRODUCT_OWNERLIST_FAILED, PRODUCT_OWNERLIST_REQUEST, PRODUCT_OWNERLIST_SUCCESS, PRODUCT_BASIC_REQUEST, PRODUCT_BASIC_SUCCESS, PRODUCT_BASIC_FAILED } from "../constants/productConst";
 
 export const productListReducer = (state = { loading: true, products: []}, action) => {
     switch(action.type) {
@@ -20,6 +20,19 @@ export const productDetailsReducer = (state = { data: {}, loading: true }, actio
         case PRODUCT_DETAILS_SUCCESS:
             return {loading: false, data: action.payload};
         case PRODUCT_DETAILS_FAILED:
+            return {loading: false, err: action.payload};
+        default:
+            return state;
+    }
+}
+
+export const productBasicReducer = (state = { data: {}, loading: true }, action) => {
+    switch(action.type) {
+        case PRODUCT_BASIC_REQUEST:
+            return {loading: true};
+        case PRODUCT_BASIC_SUCCESS:
+            return {loading: false, bdata: action.payload};
+        case PRODUCT_BASIC_FAILED:
             return {loading: false, err: action.payload};
         default:
             return state;
