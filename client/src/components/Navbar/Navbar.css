@@ -67,7 +67,7 @@
     display: none;
 }
 
-@media screen and (max-width: 2000px) { /*960px*/
+
     .NavbarItems {
         justify-content: center;
         align-items: center;
@@ -155,7 +155,6 @@
     Button {
         display: none;
     }
-}
 
 .searchbar {
     position: absolute;
@@ -169,4 +168,15 @@
     background-position: 95% 100%;
     background-size: auto 100%;
     background-repeat: no-repeat;
+}
+
+.searchbar-form {
+    position: absolute;
+    width: 0;
+    right: 10px;
+    height: 30px;
+}
+
+.search-hidden {
+    display: none;
 }

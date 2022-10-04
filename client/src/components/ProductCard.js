@@ -1,15 +1,19 @@
 import React, {  useEffect, useState } from 'react'
 import axios from 'axios';
 import placeholder from '../images/placeholder.png'
+import Rating from './Rating';
 
+const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
 export default function ProductCard(props) {
     const {product} = props;
+    const [rating, setRating] = useState(0);
     const [user, setUser] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await axios.get('/api/users/desiredOwner/'+product.owner);
             setUser(data);
+            setRating(average(user.ratingList));
         };
         fetchData();
     }, [product])
@@ -34,7 +38,7 @@ export default function ProductCard(props) {
                         <div className="owner-info">
                             <div className="owner-name"> {user.name} </div>
                             <div className="local"> {user.address} </div> 
-                            {/* rating list here */}
+                            <Rating rating={rating} caption=" "/>
                         </div>
                     </div>
                 </a>

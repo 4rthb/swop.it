@@ -16,8 +16,10 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import Offer from './views/Offer/Offer';
 
 class App extends Component  {
+
   render() {
 
     return (
@@ -29,9 +31,11 @@ class App extends Component  {
             <Route path="/product/register" element={<ProductRegister />}></Route>
             <Route path="/edit" element={<EditProfile />}></Route>
             <Route path="/product/:id" element={<Product />}></Route>
+            <Route path="/offer/:id" element={<Offer />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/user/:id" element={<Profile />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

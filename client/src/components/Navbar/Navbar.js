@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { MenuItems } from "./MenuItems"
 import { Link } from 'react-router-dom'
 
 import './Navbar.css'
@@ -10,7 +9,7 @@ export default function Navbar() {
     const [clicked, setClicked] = useState('');
     const dispatch = useDispatch();
     const userSignin = useSelector((state) => state.userSignin);
-    const { userInfo, loading, err } = userSignin;
+    const { userInfo } = userSignin;
 
     const menuHandler = () => {
         setClicked(clicked => !clicked)
@@ -26,23 +25,31 @@ export default function Navbar() {
                 <i className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
             </div>
             <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
-                {MenuItems.map((item, index) => {
-                    return (
-                        <li key={index}>
-                            <Link to={item.url} className={item.cName}>
-                            {item.title}
+                <li key='1'>
+                    <Link to='/' className='nav-links'>
+                    Produtos
+                    </Link>
+                </li>
+                {userInfo ? (
+                    <>
+                        <li key='2'>
+                            <Link to='/product/register' className='nav-links'>
+                            Registrar Produto
                             </Link>
                         </li>
-                    )
-                })}
-                {userInfo ? (
-                    <li key='4'>
-                        <Link to='/' className='nav-links-mobile' onClick={logoutHandler}>
-                        Logout
-                        </Link>
-                    </li>
+                        <li key='3'>
+                            <Link to='/edit' className='nav-links'>
+                            Editar Perfil
+                            </Link>
+                        </li>
+                        <li key='4'>
+                            <Link to='/' className='nav-links-mobile' onClick={logoutHandler}>
+                            Logout
+                            </Link>
+                        </li>
+                    </>
                  ) : (
-                    <li key='4'>
+                    <li key='2'>
                         <Link to='/login' className='nav-links-mobile'>
                         Login
                         </Link>
@@ -52,7 +59,10 @@ export default function Navbar() {
             <Link className='navbar-logo-link' to='/'>
                 <h1 className="navbar-logo">Swop <i className='it'>.it</i></h1>
             </Link>
-            <input type='text' className='searchbar' placeholder="Pesquise..."/>
+            <form className='searchbar-form' action="/" method="get">
+                <input type='text' id='header-search' className='searchbar' placeholder="Pesquise..." name='s'/>
+                <input className='search-hidden' type='submit' value='Search' />
+            </form>
         </nav>
     )
 
