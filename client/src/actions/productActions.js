@@ -1,11 +1,13 @@
 import Axios from "axios";
 import { PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAILED, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REGISTER_FAILED, PRODUCT_REGISTER_REQUEST, PRODUCT_REGISTER_SUCCESS } from "../constants/productConst";
 
-export const registerProduct = (name, description, expected, image, category,currentState,owner) => async (dispatch) => {
+export const registerProduct = (name, description, expected, imageUrl, category, owner) => async (dispatch) => {
     dispatch({ type: PRODUCT_REGISTER_REQUEST, payload: { name, owner } });
     try {
         // Axios.defaults.headers.common['Authorization'] = `Bearer ${owner.token}`;
-        const { data } = await Axios.post('/api/items/register', { name, description, expected, image, category,currentState,owner }, {headers: { Authorization: `Bearer ${owner.token}` }});
+        const user_id = owner._id;
+        const { data } = await Axios.post('/api/items/register', { name, description, expected, imageUrl, category, user_id }, 
+                                            { headers: { Authorization: `Bearer ${owner.token}` }});
         dispatch({ type: PRODUCT_REGISTER_SUCCESS, payload: data });
         localStorage.setItem('productInfo', JSON.stringify(data));
         } catch (err) {
