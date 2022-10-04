@@ -45,7 +45,8 @@ export const detailsUser = (user) => async (dispatch) => {
     dispatch({ type: USER_PROFILE_REQUEST, payload: { user } });
     try {
         console.log(user);
-        const { data } = await Axios.post('/api/users/profile',  {user} );
+        
+        const { data } = await Axios.get('/api/users/profile',  user );
         console.log(data);
         dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
         } catch (err) {

@@ -44,7 +44,8 @@ export default function Profile() {
                     </div>
                     </a>
                     <span className="profile-rating">Avaliação:</span>
-                    <span className="profile-rating-value"> {userDetails} </span>
+                    <span className="profile-rating-value"> 0 </span>    
+                    {/* { userDetails ? 0 : average(userDetails.ratingList)} */}
                 </div>
             </div>
 
