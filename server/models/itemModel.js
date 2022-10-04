@@ -17,6 +17,10 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  expected: {
+    type: String,
+    required: true
+  },
   currentState: {
     type: String,
     required: true

@@ -1,0 +1,30 @@
+.profile-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    background-color: rgb(251, 186, 171);
+    height: 80px;
+    width: 400px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+.profile-container > * {
+    margin: 0;
+    padding: 0;
+}
+
+.owner-icon-profile {
+    background-color: white;
+
+    border: solid var(--primary) 2px;
+    
+}
+
+.profile-rating-value {
+    margin-left: 5px;
+}
