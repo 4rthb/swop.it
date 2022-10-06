@@ -44,6 +44,8 @@ export const signin = (email, password) => async (dispatch) => {
 export const detailsUser = (user) => async (dispatch) => {
     dispatch({ type: USER_PROFILE_REQUEST, payload: { user } });
     try {
+        console.log(user);
+        Axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
         const { data } = await Axios.get('/api/users/profile',  user );
         dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
         } catch (err) {
@@ -60,9 +62,10 @@ export const detailsUser = (user) => async (dispatch) => {
 export const basicUser = (id) => async (dispatch) => {
     dispatch({ type: USER_BASIC_REQUEST, payload: { id } });
     try {
-        console.log(`/desiredOwner/${id.id}`);
-        const { data } = await Axios.get(`/desiredOwner/${id.id}`,  id.id );
-        console.log(data);
+        //console.log(`/desiredOwner/${id}`);
+        //console.log(id);
+        const { data } = await Axios.get(`/api/users/desiredOwner/${id}`,  id );
+        //console.log(data);
         dispatch({ type: USER_BASIC_SUCCESS, payload: data });
         } catch (err) {
             dispatch({

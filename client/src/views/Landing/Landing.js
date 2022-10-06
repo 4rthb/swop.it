@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import banner from '../../images/banner.jpg'
+import axios from 'axios';
 import './Landing.css'
 import ProductCard from '../../components/ProductCard'
 import LoadingBox from '../../components/LoadingBox';
@@ -8,16 +9,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../actions/productActions';
 import SearchFilter from '../../components/SearchFilter/SearchFilter';
 import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function Landing() {
     const filterProducts = (products, query) => {
-        let filteredProducts = products;
+        let filteredProducts = [];
+        if(products)
+            filteredProducts = JSON.parse(JSON.stringify(products));
 
-
+        console.log(query);
         if (query && filteredProducts)
-            filteredProducts = filteredProducts.filter((product) => {
+            filteredProducts = filteredProducts.filter((product) => { 
+                
                 const productName = product.name.toLowerCase();
-                return productName.includes(query.toLowerCase());
+
+                const productDescription = product.description.toLowerCase();
+
+                return productName.includes(query.toLowerCase()) ||
+                //userName.includes(query.toLowerCase()) ||
+                productDescription.includes(query.toLowerCase());
+                
             });
 
         console.log(filteredProducts);
@@ -55,12 +66,14 @@ export default function Landing() {
 
     const { search } = window.location;
     const location = useLocation();
+    const params = useParams();
     let query = new URLSearchParams(search).get('Search');
     let filteredProducts = filterProducts(products, query);
 
 
     useEffect(() => {
         query = new URLSearchParams(location.pathname).get('Search');
+        
         filteredProducts = filterProducts(products, query);
     }, [location]);
     
@@ -68,6 +81,8 @@ export default function Landing() {
     useEffect(() => {
         dispatch(listProducts());
     }, [dispatch]);
+
+
     return(
         <>
             <div className="banner">

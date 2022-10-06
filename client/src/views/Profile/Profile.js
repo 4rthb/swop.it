@@ -4,8 +4,8 @@ import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import './Profile.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../../actions/productActions';
-import { detailsUser } from '../../actions/userActions';
+import { getProducts } from '../../actions/productActions';
+import { basicUser } from '../../actions/userActions';
 import SearchFilter from '../../components/SearchFilter/SearchFilter';
 import Rating from '../../components/Rating';
 
@@ -15,49 +15,62 @@ export default function Profile() {
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState(0);
     const dispatch = useDispatch();
-    const productList = useSelector((state) => state.productList); // mudar aqui
-    const {loading, err, products} = productList;
+    const productList = useSelector((state) => state.getProducts); // mudar aqui
+    const {loading, err, userItems} = productList;
 
-    const detailsUserVar = useSelector((state) => state.detailsUser);
-    const { userDetails } = detailsUserVar;
-    const userSignin = useSelector((state) => state.userSignin);
-    const { userInfo } = userSignin;
+    const basicUserVar = useSelector((state) => state.basicUser);
+    const { userbasic } = basicUserVar;
 
     useEffect(() => {
-        dispatch(listProducts());
-        dispatch(detailsUser(userInfo));
-        if(userDetails) {
-            setRating(average(userDetails.ratingList));
-            setReviews(userDetails.ratingList.size())
+        
+        let origin = new URL(window.location.href);
+        let n = origin.href.lastIndexOf('/');
+        let result = origin.href.substring(n + 1);
+        
+        console.log(result);
+        dispatch(basicUser(result));
+        
+        dispatch(getProducts(result));
+    }, []);
+
+    useEffect(() => {
+        if(userbasic) {
+            console.log(userbasic);
+            setRating(average(userbasic.ratingList));
+            setReviews(userbasic.ratingList.length)
         }
-    }, [dispatch, userInfo, userDetails]);
+    }, [userbasic]);
 
     return(
-        <>
-            <div className="profile-container">
-                <div className="owner-container">
-                    <a href={`/user/${userInfo._id}}`}>
-                        <div className="owner-icon owner-icon-profile"> {userInfo.name} </div>
-                    </a>
-                    <a href={`/user/${userInfo._id}`}>
-                    <div className="owner-info">
-                        <div className="owner-name"> {userInfo.name} </div>
-                        <div className="local"> {userInfo.address} </div>
+        <>  
+            {
+                userbasic ?
+                <div className="profile-container">
+                    <div className="owner-container">
+                        <a href={`/user/${userbasic._id}}`}>
+                            <div className="owner-icon owner-icon-profile"> {userbasic.name} </div>
+                        </a>
+                        <a href={`/user/${userbasic._id}`}>
+                        <div className="owner-info">
+                            <div className="owner-name"> {userbasic.name} </div>
+                            <div className="local"> {userbasic.address} </div>
+                        </div>
+                        </a>
+                        <Rating rating={rating} numReviews={reviews}/>
                     </div>
-                    </a>
-                    <Rating rating={rating} numReviews={reviews}/>
-                </div>
-            </div>
-
-            <SearchFilter />
+                </div> :
+                <div>Usuário não encontrado</div>
+            }
 
             { 
                 loading ? <LoadingBox /> : err ? (<MessageBox variant='danger'>{err}</MessageBox>) : (
                     <div className="marketplace" id='Marketplace' key='Marketplace'>
                         { 
-                            products.map((product) => (
+                            userItems ? 
+                            userItems.map((product) => (
                                 <ProductCard key={product._id} product={product} />
-                            )) 
+                            )) :
+                            <div>Nenhum produto encontrado</div>
                         }
                     </div>
                 )

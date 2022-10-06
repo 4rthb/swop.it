@@ -53,9 +53,12 @@ export const getProducts = (id) => async (dispatch, getState) => {
         userSignin: { userInfo },
     } = getState();
     try {
-        const userId = id._id;
+        //console.log(id);
+        const userId = id;
         Axios.defaults.headers.common['Authorization'] = `Bearer ${userInfo.token}`;
+        //console.log();
         const { data } = await Axios.get(`/api/users/${userId}/items`, userId);
+        //console.log(data);
         dispatch({ type: PRODUCT_OWNERLIST_SUCCESS, payload: data });
         } catch (err) {
             dispatch({
