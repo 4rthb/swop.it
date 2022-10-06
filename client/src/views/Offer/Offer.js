@@ -5,6 +5,8 @@ import { offerRegister } from '../../actions/offerActions';
 import { detailsProduct, getProducts } from '../../actions/productActions';
 import placeholder from '../../images/placeholder.png'
 
+import './Offer.css'
+
 
 export default function Offer(props) {
     const productDetails = useSelector((state) => state.productDetails);
@@ -33,8 +35,8 @@ export default function Offer(props) {
     
     useEffect(() => {
         if(userInfo) {
-            dispatch(detailsProduct(productID));
-            dispatch(getProducts(userInfo));
+            dispatch(detailsProduct(productID.id));
+            dispatch(getProducts(userInfo._id));
         } else {
             alert('É preciso fazer o login para fazer propostas');
             navigate(-1);
@@ -42,21 +44,19 @@ export default function Offer(props) {
     }, [dispatch, userInfo, productID, navigate]);
 
     return (
-    <div>
-        <div>
-            <img src={data ? data.item.image : placeholder} alt={data ? data.item.name : 'product'} className="product-image" />
-        </div>
+    <div className='offer'>
+            <img src={data ? data.item.image : placeholder} alt={data ? data.item.name : 'product'} className="offer-product-image" />
         <form onSubmit={checkoutHandler} className="offer-form">
             <input
-                className="item-input"
+                className="item-text"
                 value={data ? data.item.name : 'product'}
                 type="text"
                 readOnly={true}
             />
             <br />
             <label>
-                Selecione um item para a oferta:
-                <select value={`${item}`} onChange={itemHandler} name='item'>
+                <p className='item-text'>Selecione um item para a oferta:</p>
+                <select value={`${item}`} onChange={itemHandler} name='item' className='item-text'>
                     {
                         userItems ? 
                         Object.entries(userItems).map(([key, value]) => (
@@ -65,7 +65,7 @@ export default function Offer(props) {
                     }
                 </select>
             </label>
-            <input className="item-submit" type="submit" value="Enviar Troca" />
+            <input className="item" type="submit" value="Enviar Troca" />
         </form>
     </div>
     )

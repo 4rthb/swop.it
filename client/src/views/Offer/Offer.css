@@ -1,0 +1,30 @@
+.offer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 50%;
+}
+
+.item {
+    width: 100%;
+}
+
+.item-text {
+    margin: 0.5vh 0;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.offer-form {
+    width: 50%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: auto;
+    
+}
+
+.offer-product-image {
+    width: 50vw;
+}

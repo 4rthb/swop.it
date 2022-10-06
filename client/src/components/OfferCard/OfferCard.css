@@ -1,0 +1,69 @@
+.offer-card {
+    /* width: 50%; */
+    background-color: blanchedalmond;
+    
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2vh 1vw;
+    justify-content: space-evenly;
+}
+
+.offer-pack {
+    justify-content: space-between;
+}
+
+.offer-item {
+    background-color: rgba(0, 0, 0, 0.214);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.offer-user {
+    font-size: 1em;
+}
+
+.offer-answer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    font-size: 1.5em;
+}
+
+.accept {
+    background-color: rgb(135, 243, 135);
+    width: 100%;
+    height: 4vh;
+    border: none;
+    display: block;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.accept:hover {
+    cursor: pointer;
+}
+
+.reject {
+    background-color: rgb(245, 130, 130);
+    width: 100%;
+    height: 4vh;
+    border: none;
+    display: block;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.reject:hover {
+    cursor: pointer;
+}
+
+.pending {
+    background-color: rgb(163, 163, 163);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4vh;
+    border-radius: 10px;
+    font-size: 0.8em;
+}

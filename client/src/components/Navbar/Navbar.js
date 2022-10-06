@@ -38,7 +38,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li key='3'>
-                            <Link to='/profile' className='nav-links'>
+                            <Link to={`/user/${userInfo._id}`} className='nav-links'>
                             Perfil
                             </Link>
                         </li>

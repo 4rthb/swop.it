@@ -82,3 +82,9 @@
     font-size: 1.5rem;
 }
 
+.product-offer {
+    background-color: rgb(251, 186, 171);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

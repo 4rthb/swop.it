@@ -33,7 +33,7 @@ export const listProducts = () => async (dispatch) => {
 export const detailsProduct = (productID) => async (dispatch) => {
     dispatch({type: PRODUCT_DETAILS_REQUEST, payload: productID});
     try {
-        const pdata = await Axios.get(`/api/items/${productID.id}`);
+        const pdata = await Axios.get(`/api/items/${productID}`);
         const udata = await Axios.get(`/api/users/desiredOwner/${pdata.data.owner}`);
         const data = { item: pdata.data, user: udata.data };
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
@@ -49,8 +49,10 @@ export const detailsProduct = (productID) => async (dispatch) => {
 export const basicProduct = (productID) => async (dispatch) => {
     dispatch({type: PRODUCT_BASIC_REQUEST, payload: productID});
     try {
+        console.log(productID);
         const bdata = await Axios.get(`/api/items/${productID}`);
-        dispatch({type: PRODUCT_BASIC_SUCCESS, payload: bdata});
+        console.log(bdata.data);
+        dispatch({type: PRODUCT_BASIC_SUCCESS, payload: bdata.data });
     } catch(err) {
         dispatch({type: PRODUCT_BASIC_FAILED, 
                   payload: err.response && err.response.data.message ? 

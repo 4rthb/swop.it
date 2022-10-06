@@ -19,7 +19,7 @@ export default function Product(props) {
     const { loading, err, data } = productDetails;
     
     useEffect(() => {
-        dispatch(detailsProduct(productID));
+        dispatch(detailsProduct(productID.id));
         if(data && data.user){
             setRating(average(data.user.ratingList));
             setReviews(data.user.ratingList.size());
